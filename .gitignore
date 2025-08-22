@@ -1,0 +1,62 @@
+# Node
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json.*.backup
+
+# Build outputs
+dist
+build
+coverage
+
+# Vite
+.vite
+node_modules/.vite
+
+# Env (giữ lại ví dụ)
+.env
+.env.*
+!.env.example
+
+# Editor/IDE
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.code-workspace
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# TypeScript
+*.tsbuildinfo
+
+# Tests/e2e (nếu dùng)
+.cypress/
+cypress/screenshots/
+cypress/videos/
+playwright-report/
+test-results/
+
+# Storybook (nếu dùng)
+.storybook/out
+out-storybook
+
+# Cache
+.cache/
+.parcel-cache/
+.turbo/
+.eslintcache
+.stylelintcache
+
+# Misc
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# Local tooling
+*.local
