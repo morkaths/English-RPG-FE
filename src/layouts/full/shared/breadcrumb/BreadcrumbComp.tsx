@@ -3,14 +3,14 @@ import { Badge, Breadcrumb } from "flowbite-react";
 import { Icon } from "@iconify/react";
 import CardBox from "src/components/shared/CardBox";
 
-interface BreadCrumbType {
+interface BreadCrumbProps {
   subtitle?: string;
   items?: any[];
   title: string;
   children?: JSX.Element;
 }
 
-const BreadcrumbComp = ({ items, title }: BreadCrumbType) => {
+const BreadcrumbComp = ({ items, title }: BreadCrumbProps) => {
   return (
     <>
       <CardBox className={`mb-[30px] py-4`}>

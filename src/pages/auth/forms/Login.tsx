@@ -3,12 +3,12 @@ import { Link, useNavigate } from "react-router";
 
 
 
-const AuthLogin = () => {
+const LoginForm = () => {
   const navigate = useNavigate();
-  const handleSubmit = (event:React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log(event);
-     navigate("/");
+    navigate("/");
   }
   return (
     <>
@@ -51,7 +51,7 @@ const AuthLogin = () => {
             Forgot Password ?
           </Link>
         </div>
-        <Button type="submit" color={"primary"}  className="w-full bg-primary text-white rounded-xl">
+        <Button type="submit" color={"primary"} className="w-full bg-primary text-white rounded-xl">
           Sign in
         </Button>
       </form>
@@ -59,4 +59,4 @@ const AuthLogin = () => {
   );
 };
 
-export default AuthLogin;
+export default LoginForm;

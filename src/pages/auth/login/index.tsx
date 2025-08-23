@@ -1,6 +1,6 @@
 
 import FullLogo from "src/layouts/full/shared/logo/FullLogo";
-import AuthLogin from "../authforms/AuthLogin";
+import LoginForm from "../forms/Login";
 import { Link } from "react-router";
 
 const gradientStyle = {
@@ -20,7 +20,7 @@ const Login = () => {
               <FullLogo />
             </div>
             <p className="text-sm text-center text-dark my-3">Sign In on English-RPG</p>
-            <AuthLogin />
+            <LoginForm />
             <div className="flex gap-2 text-base text-ld font-medium mt-6 items-center justify-center">
               <p>New to Matdash?</p>
               <Link to="/auth/register" className="text-primary text-sm font-medium">

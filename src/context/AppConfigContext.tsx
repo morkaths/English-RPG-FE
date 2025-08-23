@@ -1,6 +1,6 @@
 
 import React, { createContext, useState, useContext, ReactNode, useEffect } from "react";
-import config from "../config/theme";
+import config from "../config/theme.config";
 
 type AppConfig = typeof config;
 

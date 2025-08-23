@@ -1,21 +1,20 @@
-export interface navItemProps {
-  item: {
-    icon: string;
-    href?: string;
-    disabled?: boolean;
-    title?: string;
-    subtitle?: string;
-    chip?: string;
-    chipColor?: string;
-    variant?: string;
-    external?: boolean;
-    id: number;
-  };
+export interface MenuItem {
+  heading?: string;
+  name?: string;
+  icon?: any;
+  id?: number;
+  to?: string;
+  items?: MenuItem[];
+  children?: ChildItem[];
+  url?: any;
 }
 
-export interface listItemType {
-  component: any;
-  href?: string;
-  target?: any;
-  to?: any;
+export interface ChildItem {
+  id?: number | string;
+  name?: string;
+  icon?: any;
+  children?: ChildItem[];
+  item?: any;
+  url?: any;
+  color?: string;
 }

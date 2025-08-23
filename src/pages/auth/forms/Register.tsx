@@ -2,12 +2,12 @@ import { Button, Label, TextInput } from "flowbite-react";
 import { useNavigate } from "react-router";
 
 
-const AuthRegister = () => {
+const RegisterForm = () => {
   const navigate = useNavigate();
-  const handleSubmit = (event:React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log(event);
-     navigate("/");
+    navigate("/");
   }
   return (
     <>
@@ -47,12 +47,12 @@ const AuthRegister = () => {
             required
             className="form-control form-rounded-xl"
           />
-        </div> 
-        <Button color={'primary'} type="submit" className="w-full">Sign Up</Button> 
-        
+        </div>
+        <Button color={'primary'} type="submit" className="w-full">Sign Up</Button>
+
       </form>
     </>
   )
 }
 
-export default AuthRegister
+export default RegisterForm

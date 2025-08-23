@@ -4,12 +4,12 @@ import { Link } from "react-router";
 
 
 
-interface BreadCrumbType {
+interface BreadCrumbProps {
   title: string;
   link?: string;
 }
 
-const FrontEndBreadcrumb = ({ title, link }: BreadCrumbType) => {
+const FrontEndBreadcrumb = ({ title, link }: BreadCrumbProps) => {
   return (
     <>
       <div className="bg-lightgray dark:bg-darkgray sm:pb-14 pb-8">

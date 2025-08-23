@@ -1,6 +1,6 @@
 {
-  "name": "matdash-react-vite-ts",
-  "homepage": "https://themewagon.github.io/MatDash/",
+  "name": "english-rpg",
+  "homepage": "https://github.com/morkaths",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -17,6 +17,7 @@
     "@tabler/icons-react": "^2.39.0",
     "aos": "^2.3.4",
     "apexcharts": "3.48.0",
+    "axios": "^1.11.0",
     "chance": "^1.1.11",
     "date-fns": "^2.30.0",
     "flowbite": "^2.5.2",
@@ -44,6 +45,7 @@
   "devDependencies": {
     "@iconify/react": "^5.1.0",
     "@types/aos": "^3.0.7",
+    "@types/axios": "^0.9.36",
     "@types/chance": "^1.1.6",
     "@types/node": "20.10.5",
     "@types/react": "^18.3.12",
