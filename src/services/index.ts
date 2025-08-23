@@ -2,26 +2,38 @@ import axios from 'axios';
 import { API_CONFIG } from 'src/config/api.config';
 import { getCookie, deleteCookie } from 'src/utils/cookie';
 
-// Tạo instance axios cho public API
+// ────────────────────────────────────────────────────────────────────────────────
+// Public API
+// ────────────────────────────────────────────────────────────────────────────────
+// Instance axios
 const publicApi = axios.create({
     baseURL: API_CONFIG.baseURL,
     timeout: API_CONFIG.timeout
 });
+// Response interceptor (xử lý lỗi)
+publicApi.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        return Promise.reject(error);
+    }
+);
 
-// Tạo instance axios cho private API
+// ────────────────────────────────────────────────────────────────────────────────
+// Private API
+// ────────────────────────────────────────────────────────────────────────────────
+// Instance axios
 const privateApi = axios.create({
     baseURL: API_CONFIG.baseURL,
     timeout: API_CONFIG.timeout,
     withCredentials: true
 });
-
-// Request interceptor để tự động thêm token
+// Request interceptor (tự động thêm token)
 privateApi.interceptors.request.use(
     (config) => {
         const token = getCookie('authToken');
         if (token) {
             config.headers = config.headers || {};
-            config.headers.Authorization = `${token}`;
+            config.headers.Authorization = `Bearer ${token}`;
         }
         return config;
     },
@@ -29,8 +41,7 @@ privateApi.interceptors.request.use(
         return Promise.reject(error);
     }
 );
-
-// Response interceptor để xử lý token hết hạn
+// Response interceptor (xử lý token hết hạn)
 privateApi.interceptors.response.use(
     (response) => response,
     async (error) => {
@@ -40,14 +51,6 @@ privateApi.interceptors.response.use(
             deleteCookie('authUser');
             window.location.href = '/login';
         }
-        return Promise.reject(error);
-    }
-);
-
-// Interceptor cho publicApi để xử lý lỗi
-publicApi.interceptors.response.use(
-    (response) => response,
-    (error) => {
         return Promise.reject(error);
     }
 );

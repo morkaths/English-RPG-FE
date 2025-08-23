@@ -1,15 +1,27 @@
-import { Button, Checkbox, Label, TextInput } from "flowbite-react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router";
-
-
+import { Button, Checkbox, Label, TextInput } from "flowbite-react";
+import { useAuth } from "src/context/AuthContext";
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const { login, isLoading } = useAuth();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(event);
-    navigate("/");
-  }
+    setError(null);
+
+    try {
+      await login(username, password);
+      navigate("/");
+    } catch (error: any) {
+      setError(error.message || "An error occurred");
+    }
+  };
+
   return (
     <>
       <form onSubmit={handleSubmit} >
@@ -21,8 +33,10 @@ const LoginForm = () => {
             id="Username"
             type="text"
             sizing="md"
-            required
             className="form-control form-rounded-xl"
+            required
+            value={username}
+            onChange={e => setUsername(e.target.value)}
           />
         </div>
         <div className="mb-4">
@@ -33,8 +47,10 @@ const LoginForm = () => {
             id="userpwd"
             type="password"
             sizing="md"
-            required
             className="form-control form-rounded-xl"
+            required
+            value={password}
+            onChange={e => setPassword(e.target.value)}
           />
         </div>
         <div className="flex justify-between my-5">
@@ -44,15 +60,21 @@ const LoginForm = () => {
               htmlFor="accept"
               className="opacity-90 font-normal cursor-pointer"
             >
-              Remeber this Device
+              Remember this Device
             </Label>
           </div>
           <Link to={"/"} className="text-primary text-sm font-medium">
             Forgot Password ?
           </Link>
         </div>
-        <Button type="submit" color={"primary"} className="w-full bg-primary text-white rounded-xl">
-          Sign in
+        {error && <div className="text-red-500 text-sm mb-2">{error}</div>}
+        <Button
+          type="submit"
+          color={"primary"}
+          className="w-full bg-primary text-white rounded-xl"
+          disabled={isLoading}
+        >
+          {isLoading ? "Signing in..." : "Sign in"}
         </Button>
       </form>
     </>

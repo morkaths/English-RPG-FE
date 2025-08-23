@@ -1,9 +1,10 @@
 
-import { RouterProvider } from "react-router";
+import { BrowserRouter } from "react-router-dom";
 import { Flowbite, ThemeModeScript } from 'flowbite-react';
 import { AppConfigProvider } from './context/AppConfigContext';
+import { AuthProvider } from './context/AuthContext';
 import customTheme from './utils/theme/custom-theme';
-import router from "./routes";
+import AppRoutes from "./routes";
 
 
 function App() {
@@ -12,9 +13,13 @@ function App() {
     <>
       <ThemeModeScript />
       <AppConfigProvider>
-        <Flowbite theme={{ theme: customTheme }}>
-          <RouterProvider router={router} />
-        </Flowbite>
+        <AuthProvider>
+          <Flowbite theme={{ theme: customTheme }}>
+            <BrowserRouter basename="English-RPG">
+              <AppRoutes />
+            </BrowserRouter>
+          </Flowbite>
+        </AuthProvider>
       </AppConfigProvider>
     </>
   );

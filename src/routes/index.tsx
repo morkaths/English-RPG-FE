@@ -1,51 +1,46 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import { lazy } from 'react';
-import { Navigate, createBrowserRouter } from 'react-router';
-import Loadable from 'src/layouts/full/shared/loadable';
+import React from "react";
+import { Routes, Route } from "react-router";
+import PublicRoutes from "./public";
+import { RequireAuth } from "./guard";
 
-/* Layouts */
-const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
-const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
+/**
+ * Bọc element bằng guard nếu route có required (auth,admin,...).
+ * @param route Đối tượng route trong cấu hình
+ * @param element React element (component của route)
+ * @returns Element đã được bọc guard nếu cần
+ */
+function wrapElement(route: any, element: React.ReactElement) {
+  let wrapped = element;
+  if (route.requiresAuth) {
+    wrapped = <RequireAuth requiresAuth>{wrapped}</RequireAuth>;
+  }
+  return wrapped;
+}
 
-/* Pages */
-const Dashboard = Loadable(lazy(() => import('../pages/dashboards')));
-const SamplePage = Loadable(lazy(() => import('../pages/sample-page')));
-const Typography = Loadable(lazy(() => import('../pages/typography/Typography')));
-const Table = Loadable(lazy(() => import('../pages/tables/Table')));
-const Form = Loadable(lazy(() => import('../pages/forms')));
-const Shadow = Loadable(lazy(() => import('../pages/shadows')));
+/**
+ * Đệ quy mảng route thành các <Route> của React Router v6+.
+ * Nếu route có children, sẽ tạo route cha (layout) và render các route con bên trong.
+ * @param routes Mảng cấu hình route (có thể có children cho nested layout)
+ * @returns Mảng các <Route> JSX đã được render
+ */
+function renderRoutes(routes: any[]) {
+  return routes.map((route, idx) => {
+    if (route.children) {
+      return (
+        <Route key={idx} element={route.element}>
+          {renderRoutes(route.children)}
+        </Route>
+      );
+    }
+    return (
+      <Route
+        key={idx}
+        path={route.path}
+        element={wrapElement(route, route.element)}
+      />
+    );
+  });
+}
 
-// authentication
-const Login = Loadable(lazy(() => import('../pages/auth/login')));
-const Register = Loadable(lazy(() => import('../pages/auth/register')));
-const Error = Loadable(lazy(() => import('../pages/auth/error')));
-
-const Router = [
-  {
-    path: '/',
-    element: <FullLayout />,
-    children: [
-      { index: true, element: <Dashboard /> },
-      { path: 'ui/typography', element: <Typography /> },
-      { path: 'ui/table', element: <Table /> },
-      { path: 'ui/form', element: <Form /> },
-      { path: 'ui/shadow', element: <Shadow /> },
-      { path: 'sample-page', element: <SamplePage /> },
-      { path: '*', element: <Navigate to="/404" /> },
-    ],
-  },
-  {
-    path: '/',
-    element: <BlankLayout />,
-    children: [
-      { path: 'auth/login', element: <Login /> },
-      { path: 'auth/register', element: <Register /> },
-      { path: '404', element: <Error /> },
-      { path: '*', element: <Navigate to="/404" /> },
-    ],
-  },
-];
-
-const router = createBrowserRouter(Router, { basename: '/English-RPG' });
-export default router;
+const AppRoutes = () => <Routes>{renderRoutes(PublicRoutes)}</Routes>;
+export default AppRoutes;

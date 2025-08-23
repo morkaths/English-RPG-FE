@@ -1,4 +1,4 @@
-import { VITE_API_URL } from '../utils/constants';
+import { VITE_API_URL } from './constants';
 
 export const API_CONFIG = {
     baseURL: VITE_API_URL,
@@ -8,7 +8,8 @@ export const API_CONFIG = {
             login: '/auth/login',
             register: '/auth/register',
             logout: '/auth/logout',
-            me: '/auth/me'
+            profile: '/auth/profile',
+            update: '/auth/update-profile'
         },
         user: {
             getAll: '/user',

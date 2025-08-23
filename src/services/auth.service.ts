@@ -3,29 +3,36 @@ import type { User } from '../types';
 import { API_CONFIG } from 'src/config/api.config';
 
 export const AuthService = {
-    register: async(user: Partial<User>): Promise<User | null> => {
-        const response = await RequestUtils.privatePost<User>(API_CONFIG.endpoints.auth.register, user);
-        if (response.success && response.data) {
-            return response.data;
+    register: async (data: Partial<User>): Promise<{ user: User; token: string } | null> => {
+        const response = await RequestUtils.privatePost<User>(API_CONFIG.endpoints.auth.register, data);
+        if (response.success && response.user && response.token) {
+            return { user: response.user, token: response.token };
         }
-        return null;
+        throw new Error(response.message || 'Registration failed');
     },
-    login: async(email: string, password: string): Promise<User | null> => {
+    login: async (email: string, password: string): Promise<{ user: User; token: string } | null> => {
         const response = await RequestUtils.privatePost<User>(API_CONFIG.endpoints.auth.login, { email, password });
-        if (response.success && response.data) {
-            return response.data;
+        if (response.success && response.user && response.token) {
+            return { user: response.user, token: response.token };
         }
-        return null;
+        throw new Error(response.message || 'Login failed');
     },
-    logout: async(): Promise<boolean> => {
+    logout: async (): Promise<boolean> => {
         const response = await RequestUtils.privatePost(API_CONFIG.endpoints.auth.logout);
         return response.success;
     },
-    me: async(): Promise<User | null> => {
-        const response = await RequestUtils.privateGet<User>(API_CONFIG.endpoints.auth.me);
-        if (response.success && response.data) {
-            return response.data;
+    profile: async (): Promise<User | null> => {
+        const response = await RequestUtils.privateGet<User>(API_CONFIG.endpoints.auth.profile);
+        if (response.success && response.user) {
+            return response.user; 
         }
-        return null;
+        throw new Error(response.message || 'Failed to fetch user profile');
+    },
+    update: async (data: Partial<User>): Promise<User | null> => {
+        const response = await RequestUtils.privatePut<User>(API_CONFIG.endpoints.auth.update, data);
+        if (response.success && response.user) {
+            return response.user;
+        }
+        throw new Error(response.message || 'Failed to update user profile');
     }
 }
