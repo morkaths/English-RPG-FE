@@ -7,10 +7,10 @@ import type { ApiResponse } from 'src/types';
  * @returns success, message, statusCode
  */
 function handleError(error: any): ApiResponse<any> {
-  console.error('API Error:', error.response?.data?.message || 'Lỗi kết nối máy chủ');
+  console.error('API Error:', error.response?.data?.message || 'Lỗi kết nối máy chủ!');
   return {
     success: false,
-    message: error.response?.data?.message || 'Lỗi kết nối máy chủ',
+    message: error.response?.data?.message || 'Lỗi kết nối máy chủ!',
     statusCode: error.response?.status || 500
   };
 }

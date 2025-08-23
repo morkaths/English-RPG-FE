@@ -1,6 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { lazy, ComponentType } from 'react';
+import { Navigate } from "react-router-dom";
+import paths from "../config/path.config";
 import Loadable from 'src/layouts/full/shared/loadable';
 
 /* Layouts */
@@ -18,7 +20,8 @@ const Shadow = Loadable(lazy(() => import('../pages/shadows')));
 // authentication
 const Login = Loadable(lazy(() => import('../pages/auth/login')));
 const Register = Loadable(lazy(() => import('../pages/auth/register')));
-const Error404 = Loadable(lazy(() => import('../pages/auth/error')));
+const Error404 = Loadable(lazy(() => import('../pages/auth/error/404')));
+const Error403 = Loadable(lazy(() => import('../pages/auth/error/403')));
 
 export interface NestedRoute {
   path?: string;
@@ -33,22 +36,23 @@ const PublicRoutes: NestedRoute[] = [
   {
     element: <FullLayout />,
     children: [
-      { path: '/', element: <Dashboard />, requiresAuth: false },
-      { path: '/sample-page', element: <SamplePage /> },
+      { path: paths.sample, element: <SamplePage /> },
+      { path: paths.home, element: <Dashboard />, requiresAuth: false },
       { path: '/ui/typography', element: <Typography /> },
       { path: '/ui/table', element: <Table /> },
       { path: '/ui/form', element: <Form /> },
       { path: '/ui/shadow', element: <Shadow /> },
-      { path: '*', element: <Error404 /> },
+      { path: '*', element: <Navigate to={paths.error404} replace /> },
     ],
   },
   {
     element: <BlankLayout />,
     children: [
-      { path: '/auth/login', element: <Login /> },
-      { path: '/auth/register', element: <Register /> },
-      { path: '/auth/error404', element: <Error404 /> },
-      { path: '*', element: <Error404 /> },
+      { path: paths.login, element: <Login /> },
+      { path: paths.register, element: <Register /> },
+      { path: paths.error404, element: <Error404 /> },
+      { path: paths.error403, element: <Error403 /> },
+      { path: '*', element: <Navigate to={paths.error404} replace /> },
     ],
   },
 ];

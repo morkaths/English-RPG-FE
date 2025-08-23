@@ -1,15 +1,18 @@
 
 import { useState, useEffect } from "react";
-import {  Button, Navbar, Drawer } from "flowbite-react";
+import { Button, Navbar, Drawer } from "flowbite-react";
 import { Icon } from "@iconify/react";
 import { Link } from "react-router";
 import Profile from "./Profile";
 import Notification from "./Notification";
 import MobileSidebar from "../sidebar/MobileSidebar";
+import paths from "src/config/path.config";
+import { useAuth } from "src/context/AuthContext";
 
 
 const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,8 +37,8 @@ const Header = () => {
     <>
       <header
         className={`sticky top-0 z-[5] ${isSticky
-            ? "bg-white dark:bg-dark fixed w-full"
-            : "bg-white"
+          ? "bg-white dark:bg-dark fixed w-full"
+          : "bg-white"
           }`}
       >
         <Navbar
@@ -55,11 +58,21 @@ const Header = () => {
             </div>
 
             <div className="flex gap-4 items-center">
-              <Button as={Link} to="#" size={'sm'} color={"primary"} className="rounded-md py-1 px-3">
-                Đăng nhập
-              </Button>
-              <Notification />
-              <Profile />
+              {!isAuthenticated ? (
+                <>
+                  <Button as={Link} to={paths.login} size="sm" color="primary" className="rounded-md py-1 px-3">
+                    Đăng nhập
+                  </Button>
+                  <Button as={Link} to={paths.register} size="sm" color="transparent" className="rounded-md py-1 px-3">
+                    Đăng ký
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Notification />
+                  <Profile />
+                </>
+              )}
             </div>
           </div>
         </Navbar>

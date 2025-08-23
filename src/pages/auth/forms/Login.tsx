@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { Button, Checkbox, Label, TextInput } from "flowbite-react";
+import { Button, Checkbox, Label, TextInput, Alert } from "flowbite-react";
 import { useAuth } from "src/context/AuthContext";
+import { FaGoogle, FaFacebookF } from "react-icons/fa";
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const { login, isLoading } = useAuth();
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
 
@@ -15,7 +16,7 @@ const LoginForm = () => {
     setError(null);
 
     try {
-      await login(username, password);
+      await login(email, password);
       navigate("/");
     } catch (error: any) {
       setError(error.message || "An error occurred");
@@ -25,30 +26,35 @@ const LoginForm = () => {
   return (
     <>
       <form onSubmit={handleSubmit} >
+        {error && (
+          <Alert color="failure" className="mb-4">
+            {error}
+          </Alert>
+        )}
         <div className="mb-4">
           <div className="mb-2 block">
-            <Label htmlFor="Username" value="Username" />
+            <Label htmlFor="email" value="Email" />
           </div>
           <TextInput
-            id="Username"
-            type="text"
+            id="email"
+            type="email"
             sizing="md"
-            className="form-control form-rounded-xl"
             required
-            value={username}
-            onChange={e => setUsername(e.target.value)}
+            className="form-control form-rounded-xl"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
           />
         </div>
         <div className="mb-4">
           <div className="mb-2 block">
-            <Label htmlFor="userpwd" value="Password" />
+            <Label htmlFor="password" value="Password" />
           </div>
           <TextInput
-            id="userpwd"
+            id="password"
             type="password"
             sizing="md"
-            className="form-control form-rounded-xl"
             required
+            className="form-control form-rounded-xl"
             value={password}
             onChange={e => setPassword(e.target.value)}
           />
@@ -67,7 +73,6 @@ const LoginForm = () => {
             Forgot Password ?
           </Link>
         </div>
-        {error && <div className="text-red-500 text-sm mb-2">{error}</div>}
         <Button
           type="submit"
           color={"primary"}
@@ -76,6 +81,29 @@ const LoginForm = () => {
         >
           {isLoading ? "Signing in..." : "Sign in"}
         </Button>
+
+        <div className="flex items-center my-4">
+          <div className="flex-grow border-t border-gray-300"></div>
+          <span className="mx-2 text-gray-400 text-sm">hoặc</span>
+          <div className="flex-grow border-t border-gray-300"></div>
+        </div>
+
+        <div className="flex gap-3">
+          <Button
+            type="button"
+            color="outline"
+            className="w-full flex items-center justify-center gap-2 border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
+          >
+            <FaGoogle /> Google
+          </Button>
+          <Button
+            type="button"
+            color="outline"
+            className="w-full flex items-center justify-center gap-2 border-2 border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white"
+          >
+            <FaFacebookF /> Facebook
+          </Button>
+        </div>
       </form>
     </>
   );
