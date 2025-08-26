@@ -7,15 +7,18 @@ import { FaGoogle, FaFacebookF } from "react-icons/fa";
 
 
 const RegisterForm = () => {
+  // Router
   const navigate = useNavigate();
+  // Hooks
   const { register, isLoading } = useAuth();
+  // State UI
   const [user, setUser] = useState<Partial<User>>({});
   const [error, setError] = useState<string | null>(null);
 
+  // Handle form submission
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError(null);
-
     try {
       await register(user);
       navigate("/");

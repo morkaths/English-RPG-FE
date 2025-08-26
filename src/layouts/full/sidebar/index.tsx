@@ -3,6 +3,7 @@ import React from 'react';
 import SimpleBar from 'simplebar-react';
 import FullLogo from '../shared/logo/FullLogo';
 import NavItems from './NavItems';
+import Upgrade from "./Upgrade";
 import SidebarContent from './SidebarContent';
 
 const SidebarLayout = () => {
@@ -37,6 +38,7 @@ const SidebarLayout = () => {
               </Sidebar.ItemGroup>
             </Sidebar.Items>
           </SimpleBar>
+          <Upgrade />
         </Sidebar>
       </div>
     </>

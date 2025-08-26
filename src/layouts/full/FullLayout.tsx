@@ -1,8 +1,10 @@
 import { FC } from 'react';
 import { Outlet } from "react-router";
-import ScrollToTop from 'src/components/shared/ScrollToTop';
+import ScrollToTopRoute from 'src/components/common/shared/ScrollToTopRoute';
 import Sidebar from './sidebar';
 import Header from './header';
+import ChatSupport from "./fab/ChatSupport";
+import ScrollToTop from './fab/ScrollToTop';
 
 
 
@@ -24,16 +26,18 @@ const FullLayout: FC = () => {
               <div
                 className={`w-full`}
               >
-                <ScrollToTop>
+                <ScrollToTopRoute>
                   <div className="container py-30">
                     <Outlet />
                   </div>
-                </ScrollToTop>
+                </ScrollToTopRoute>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <ScrollToTop />
+      <ChatSupport onClick={() => { /* Xử lý mở settings hoặc chat ở đây */ }} /> {/* Thêm dòng này */}
     </>
   );
 };

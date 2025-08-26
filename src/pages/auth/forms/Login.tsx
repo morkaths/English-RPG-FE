@@ -5,16 +5,19 @@ import { useAuth } from "src/context/AuthContext";
 import { FaGoogle, FaFacebookF } from "react-icons/fa";
 
 const LoginForm = () => {
+  // Router
   const navigate = useNavigate();
+  // Hooks
   const { login, isLoading } = useAuth();
+  // State UI
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
 
+  // Handle form submission
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError(null);
-
     try {
       await login(email, password);
       navigate("/");

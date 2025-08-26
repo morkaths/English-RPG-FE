@@ -1,5 +1,5 @@
 import React from "react";
-import { ChildItem } from "../SidebarContent";
+import type { ChildItem } from "src/types/layout/sidebar";
 import { Sidebar } from "flowbite-react";
 import { Icon } from "@iconify/react";
 import { Link, useLocation } from "react-router";
@@ -9,6 +9,7 @@ import { Link, useLocation } from "react-router";
 interface NavItemsProps {
   item: ChildItem;
 }
+
 const NavItems: React.FC<NavItemsProps> = ({ item }) => {
   const location = useLocation();
   const pathname = location.pathname;

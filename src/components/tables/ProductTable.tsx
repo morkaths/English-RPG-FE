@@ -104,11 +104,11 @@ const ProductTable = () => {
                       <Table.Cell>
                         <h5 className="text-base text-wrap">
                           {item.payment}
-                          <span className="text-dark opacity-70">
+                          <span className="text-dark dark:text-white opacity-70">
                             <span className="mx-1">/</span>499
                           </span>
                         </h5>
-                        <div className="text-sm font-medium text-dark opacity-70 mb-2 text-wrap">
+                        <div className="text-sm font-medium text-dark dark:text-white opacity-70 mb-2 text-wrap">
                           {item.paymentstatus}
                         </div>
                         <div className="me-5">

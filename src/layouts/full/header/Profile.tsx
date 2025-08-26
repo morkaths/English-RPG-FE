@@ -3,8 +3,10 @@ import { Button, Dropdown } from "flowbite-react";
 import { Icon } from "@iconify/react";
 import user1 from "/src/assets/images/profile/user-1.jpg";
 import { Link } from "react-router";
+import { useAuth } from "src/context/AuthContext";
 
 const Profile = () => {
+  const { logout } = useAuth();
   return (
     <div className="relative group/menu">
       <Dropdown
@@ -52,7 +54,13 @@ const Profile = () => {
           My Task
         </Dropdown.Item>
         <div className="p-3 pt-0">
-        <Button as={Link}  size={'sm'}  to="/auth/login" className="mt-2 border border-primary text-primary bg-transparent hover:bg-lightprimary outline-none focus:outline-none">Logout</Button>
+          <Button
+            size="sm"
+            className="mt-2 border border-primary text-primary bg-transparent hover:bg-lightprimary outline-none focus:outline-none w-full"
+            onClick={logout}
+          >
+            Logout
+          </Button>
         </div>
       </Dropdown>
     </div>

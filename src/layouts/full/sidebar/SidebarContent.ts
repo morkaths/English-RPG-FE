@@ -1,15 +1,34 @@
-import type { MenuItem } from 'src/types/layout/sidebar';
+
 import { uniqueId } from "lodash";
+import paths from "src/config/path.config";
+import type { MenuItem } from 'src/types/layout/sidebar';
 
 const SidebarContent: MenuItem[] = [
   {
     heading: "HOME",
     children: [
       {
+        name: "Home",
+        icon: "solar:home-2-linear",
+        id: uniqueId(),
+        url: paths.home,
+      },
+      {
         name: "Dashboard",
         icon: "solar:widget-add-line-duotone",
         id: uniqueId(),
-        url: "/",
+        url: paths.dashboard,
+      },
+    ],
+  },
+  {
+    heading: "LEARNING",
+    children: [
+      {
+        name: "Courses",
+        icon: "solar:book-outline",
+        id: uniqueId(),
+        url: paths.courses,
       },
     ],
   },
@@ -43,19 +62,36 @@ const SidebarContent: MenuItem[] = [
     ],
   },
   {
+    heading: "USER",
+    children: [
+      {
+        name: "Profile",
+        icon: "solar:user-circle-outline",
+        id: uniqueId(),
+        url: paths.profile,
+      },
+      {
+        name: "Settings",
+        icon: "solar:settings-2-linear",
+        id: uniqueId(),
+        url: paths.settings,
+      },
+    ],
+  },
+  {
     heading: "AUTH",
     children: [
       {
         name: "Login",
         icon: "solar:login-2-linear",
         id: uniqueId(),
-        url: "/auth/login",
+        url: paths.login,
       },
       {
         name: "Register",
         icon: "solar:shield-user-outline",
         id: uniqueId(),
-        url: "/auth/register",
+        url: paths.register,
       },
     ],
   },
@@ -63,16 +99,10 @@ const SidebarContent: MenuItem[] = [
     heading: "EXTRA",
     children: [
       {
-        name: "Icons",
-        icon: "solar:smile-circle-outline",
-        id: uniqueId(),
-        url: "/icons/solar",
-      },
-      {
         name: "Sample Page",
         icon: "solar:notes-minimalistic-outline",
         id: uniqueId(),
-        url: "/sample-page",
+        url: paths.sample,
       },
     ],
   },

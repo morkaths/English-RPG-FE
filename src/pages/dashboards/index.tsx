@@ -6,6 +6,7 @@ import ProductRevenue from 'src/components/dashboard/ProductRevenue';
 import { RevenueForecast } from 'src/components/dashboard/RevenueForecast';
 import TotalIncome from 'src/components/dashboard/TotalIncome';
 
+
 const Dashboard = () => {
   return (
     <div className="grid grid-cols-12 gap-30">

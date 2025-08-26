@@ -63,9 +63,12 @@ const particlesOptions = {
 };
 
 export default function Error403() {
-  const [init, setInit] = useState(false);
+  // Router
   const navigate = useNavigate();
+  // State UI
+  const [init, setInit] = useState(false);
 
+  // Initialize particles
   useEffect(() => {
     initParticlesEngine(async (engine) => {
       await loadSlim(engine);

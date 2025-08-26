@@ -10,6 +10,7 @@ const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
 
 /* Pages */
+const CoursesPage = Loadable(lazy(() => import('../pages/courses')));
 const Dashboard = Loadable(lazy(() => import('../pages/dashboards')));
 const SamplePage = Loadable(lazy(() => import('../pages/sample-page')));
 const Typography = Loadable(lazy(() => import('../pages/typography/Typography')));
@@ -36,12 +37,17 @@ const PublicRoutes: NestedRoute[] = [
   {
     element: <FullLayout />,
     children: [
+      { path: paths.home, element: <Dashboard /> },
+      { path: paths.dashboard, element: <Dashboard />, requiresAuth: false },
+      { path: paths.courses, element: <CoursesPage /> },
       { path: paths.sample, element: <SamplePage /> },
-      { path: paths.home, element: <Dashboard />, requiresAuth: false },
+
+      // UI page demo
       { path: '/ui/typography', element: <Typography /> },
       { path: '/ui/table', element: <Table /> },
       { path: '/ui/form', element: <Form /> },
       { path: '/ui/shadow', element: <Shadow /> },
+
       { path: '*', element: <Navigate to={paths.error404} replace /> },
     ],
   },
