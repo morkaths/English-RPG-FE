@@ -58,7 +58,7 @@ const CourseGrid: React.FC<CourseGridProps> = ({ courses, loading, viewMode = 'g
           <h3 className="text-xl font-semibold mb-2">Không tìm thấy khóa học</h3>
           <p>Thử thay đổi bộ lọc hoặc từ khóa tìm kiếm</p>
         </div>
-        <Button color="primary" onClick={() => navigate(paths.course)}>
+        <Button color="primary" onClick={() => navigate(paths.courses)}>
           Xem tất cả khóa học
         </Button>
       </Card>
