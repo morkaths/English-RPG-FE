@@ -1,17 +1,93 @@
 // ────────────────────────────────────────────────────────────────────────────────
 // User Service: Quản lý người dùng, xác thực & phân quyền
 // ────────────────────────────────────────────────────────────────────────────────
-// Người dùng (User)
+// Người dùng
 export interface User {
   _id: string;
   username: string;
-  password: string;
+  password?: string;
   email: string;
   role: 'admin' | 'staff' | 'user';
   avatar?: string;
   isVerified: boolean;
   joinedAt: Date;
 }
+
+// ────────────────────────────────────────────────────────────────────────────────
+// Catalog Service: Quản lý nội dung, danh mục
+// ────────────────────────────────────────────────────────────────────────────────
+// Gắn thẻ
+export interface Tag {
+  _id: string;
+  name: string;
+  type?: 'topic' | "skill" | 'item' | 'quest' | 'other';
+  icon?: string;
+  color?: string;
+}
+
+// Nhân vật
+export interface Character {
+  _id: string;
+  name: string;
+  figure: string;
+  hp: number;
+  atk: number;
+  def: number;
+  critRate?: number;
+  critDamage?: number;
+}
+// Khóa học
+export interface Course {
+  _id: string;
+  title: string;
+  tags?: string[]; //Tag._id[]
+  thumbnail?: string;
+  description?: string;
+  level?: string; // A1, A2, B1, B2, C1, C2
+  lessons: string[]; // Lesson._id[]
+  rewardCoins?: number;
+  rewardItems?: { id: string; quantity: number }[];
+  createdAt: Date;
+  updatedAt?: Date;
+}
+// Bài học
+export interface Lesson {
+  _id: string;
+  title: string;
+  tags?: string[];
+  content: string;
+  quizzes: string[]; // Quiz._id[]
+  resources?: string[];
+  monster?: Character;
+  rewardCoins?: number;
+}
+// Câu hỏi
+export interface BaseQuiz {
+  _id: string;
+  lessonId: string; // Lesson._id
+  type: 'choice' | 'fill_blank' | 'matching';
+  question: string;
+  timeLimit?: number; // seconds
+  rewardExp?: number;
+}
+
+export interface ChoiceQuiz extends BaseQuiz {
+  type: 'choice';
+  options: { _id: string; text: string; isCorrect: boolean }[];
+}
+
+export interface FillBlankQuiz extends BaseQuiz {
+  type: 'fill_blank';
+  answers: { _id: string; text: string }[]
+}
+
+export interface MatchingQuiz extends BaseQuiz {
+  type: 'matching';
+  pairs: { _id:string; left: string; right: string }[];
+}
+
+export type Quiz = ChoiceQuiz | FillBlankQuiz | MatchingQuiz;
+
 
 // ────────────────────────────────────────────────────────────────────────────────
 // Progress Service: Quản lý tiến trình người chơi
@@ -31,30 +107,7 @@ export interface UserProgress {
     critRate: number;
     critDamage: number;
   };
-  updatedAt: Date;
-}
-// Kho đồ
-export interface Inventory {
-  _id: string;
-  userId: string; // User._id
-  itemId: string; // Item._id
-  quantity: number;
-}
-// Tiến trình nhiệm vụ
-export interface QuestProgress {
-  _id: string;
-  userId: string; // User._id
-  questId: string; // Quest._id
-  status: 'not_started' | 'in_progress' | 'completed';
-  progress: number; // 0-100%
-  updatedAt: Date;
-}
-// Tiến trình thành tích
-export interface AchievementProgress {
-  _id: string;
-  userId: string; // User._id
-  achievementId: string; // Achievement._id
-  achievedAt: Date;
+  updatedAt?: Date;
 }
 // Tiến trình khóa học
 export interface CourseProgress {
@@ -66,47 +119,51 @@ export interface CourseProgress {
     status: 'not_started' | 'in_progress' | 'completed';
     completedAt?: Date;
   }[];
-  progress: number; // 0-100%
+  progress?: number; // 0-100%
+}
+// Tiến trình nhiệm vụ (Dự kiến)
+export interface QuestProgress {
+  _id: string;
+  userId: string; // User._id
+  questId: string; // Quest._id
+  status: 'not_started' | 'in_progress' | 'completed';
+  progress?: number; // 0-100%
+  updatedAt?: Date;
+}
+// Tiến trình thành tích (Dự kiến)
+export interface AchievementProgress {
+  _id: string;
+  userId: string; // User._id
+  achievementId: string; // Achievement._id
+  achievedAt?: Date;
 }
 
+
 // ────────────────────────────────────────────────────────────────────────────────
-// Catalog Service: Quản lý nội dung, danh mục
+// Rewards Service: Quản lý phần thưởng, thành tích
 // ────────────────────────────────────────────────────────────────────────────────
-// Gắn thẻ (Tag)
-export interface Tag {
+// Thành tích (Dự kiến)
+export interface Achievement {
   _id: string;
   name: string;
-  type?: 'topic' | "skill" | 'item' | 'quest' | 'other';
+  description?: string;
   icon?: string;
-  color?: string;
+  points?: number;
 }
-
-// Nhân vật (Character)
-export interface Character {
-  _id: string;
-  name: string;
-  figure: string;
-  hp: number;
-  atk: number;
-  def: number;
-  critRate?: number;
-  critDamage?: number;
-}
-
-// Nhiệm vụ (Quest)
+// Nhiệm vụ (Dự kiến)
 export interface Quest {
   _id: string;
   title: string;
   tags?: string[]; // Tag._id[]
   description: string;
   requiredLevel?: number;
-  rewardCoins: number;
-  rewardItems: {
+  rewardCoins?: number;
+  rewardItems?: {
     id: string; // Item._id
     quantity: number;
   }[];
 }
-// Vật phẩm (Item)
+// Vật phẩm (Dự kiến)
 export interface Item {
   _id: string;
   name: string;
@@ -116,66 +173,13 @@ export interface Item {
   effect?: string;
   type: 'equipment' | 'consumable' | 'quest' | 'other';
 }
-// Thành tích (Achievement)
-export interface Achievement {
+// Kho đồ (Dự kiến)
+export interface Inventory {
   _id: string;
-  name: string;
-  description?: string;
-  icon?: string;
-  points?: number;
+  userId: string; // User._id
+  itemId: string; // Item._id
+  quantity: number;
 }
-// Khóa học (Course)
-export interface Course {
-  _id: string;
-  title: string;
-  tags?: string[]; //Tag._id[]
-  thumbnail?: string;
-  description?: string;
-  level?: string; // A1, A2, B1, B2, C1, C2
-  lessons: string[]; // Lesson._id[]
-  rewardCoins?: number;
-  rewardItems?: { id: string; quantity: number }[];
-  createdAt: Date;
-  updatedAt: Date;
-}
-// Bài học (Lesson)
-export interface Lesson {
-  _id: string;
-  courseId: string; // Course._id
-  title: string;
-  tags?: string[];
-  content: string;
-  quizzes: string[]; // Quiz._id[]
-  resources: string[];
-  monster: Character;
-  rewardCoins: number;
-}
-// Câu hỏi trong bài học
-export interface BaseQuiz {
-  _id: string;
-  lessonId: string; // Lesson._id
-  type: 'choice' | 'fill_blank' | 'matching';
-  question: string;
-  timeLimit: number;
-  rewardExp: number;
-}
-
-export interface ChoiceQuiz extends BaseQuiz {
-  type: 'choice';
-  options: { text: string; isCorrect: boolean }[];
-}
-
-export interface FillBlankQuiz extends BaseQuiz {
-  type: 'fill_blank';
-  correctAnswers: string[];
-}
-
-export interface MatchingQuiz extends BaseQuiz {
-  type: 'matching';
-  pairs: { left: string; right: string }[];
-}
-
-export type Quiz = ChoiceQuiz | FillBlankQuiz | MatchingQuiz;
 
 
 // ────────────────────────────────────────────────────────────────────────────────
@@ -204,6 +208,7 @@ export interface BattleTurn {
   damage: number;
 }
 
+
 // ────────────────────────────────────────────────────────────────────────────────
 // Utils: Các interface tiện ích
 // ────────────────────────────────────────────────────────────────────────────────
@@ -219,6 +224,7 @@ export interface SearchFilters {
   tags?: string[];    // Lọc theo tag (nếu có)
   sortBy?: string;    // Sắp xếp (relevance, popular, latest, ...)
 }
+
 
 // ────────────────────────────────────────────────────────────────────────────────
 // API Response: Xử lý phản hồi API

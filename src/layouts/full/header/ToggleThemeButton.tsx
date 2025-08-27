@@ -12,11 +12,15 @@ const ToggleThemeButton = () => {
   return (
     <button
       onClick={toggleMode}
-      className={`p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition`}
+      className={`p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition group`}
       title="Chuyển giao diện sáng/tối"
       type="button"
     >
-      <Icon icon={config.activeMode === "dark" ? "solar:moon-linear" : "solar:sun-linear"} width={22} />
+      <Icon
+        icon={config.activeMode === "dark" ? "solar:moon-linear" : "solar:sun-linear"}
+        width={22}
+        className="text-gray-400 group-hover:text-primary transition-colors"
+      />
     </button>
   );
 };

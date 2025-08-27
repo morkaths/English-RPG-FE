@@ -18,7 +18,6 @@ const paths = {
   // Courses
   courses: "/courses",
   courseDetail: (id: string) => `/courses/${id}`,
-  courseLesson: (courseId: string, lessonId: string) => `/courses/${courseId}/lessons/${lessonId}`,
   courseSearch: (filters: SearchFilters) => {
     const search = new URLSearchParams();
     Object.entries(filters).forEach(([key, value]) => {

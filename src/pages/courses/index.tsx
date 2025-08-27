@@ -6,9 +6,9 @@ import { SearchFilters } from "src/types";
 import paths from "src/config/path.config";
 import useTags from "src/hooks/useTags";
 import useCourses from "src/hooks/useCourses";
-import CourseGrid from "src/components/home/CourseGrid";
-import CoursesHeader from "src/components/home/CourseHeader";
-import CourseGridHeader from "src/components/home/CourseGridHeader";
+import CourseGrid from "src/components/courses/CourseGrid";
+import CourseSearch from "src/components/courses/CourseSearch";
+import CourseGridHeader from "src/components/courses/CourseGridHeader";
 
 const CoursesPage = () => {
   // Router
@@ -69,7 +69,7 @@ const CoursesPage = () => {
 
       {/* Header */}
       <div className="col-span-12">
-        <CoursesHeader onSearch={handleSearch} loading={false} />
+        <CourseSearch onSearch={handleSearch} loading={false} />
       </div>
 
       {/* Main Content */}

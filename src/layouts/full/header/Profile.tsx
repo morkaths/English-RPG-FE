@@ -14,7 +14,7 @@ const Profile = () => {
         className="rounded-sm w-44"
         dismissOnClick={false}
         renderTrigger={() => (
-          <span className="h-10 w-10 hover:text-primary hover:bg-lightprimary rounded-full flex justify-center items-center cursor-pointer group-hover/menu:bg-lightprimary group-hover/menu:text-primary">
+          <span className="h-10 w-10 hover:text-primary hover:bg-lightprimary dark:hover:bg-gray-700 rounded-full flex justify-center items-center cursor-pointer group-hover/menu:bg-lightprimary group-hover/menu:text-primary dark:group-hover/menu:bg-gray-700">
             <img
               src={user1}
               alt="logo"
@@ -30,7 +30,7 @@ const Profile = () => {
         <Dropdown.Item
           as={Link}
           to="#"
-          className="px-3 py-3 flex items-center bg-hover group/link w-full gap-3 text-dark"
+          className="px-3 py-3 flex items-center bg-hover group/link w-full gap-3 text-dark dark:text-white"
         >
           <Icon icon="solar:user-circle-outline" height={20} />
           My Profile
@@ -40,7 +40,7 @@ const Profile = () => {
         <Dropdown.Item
           as={Link}
           to="#"
-          className="px-3 py-3 flex items-center bg-hover group/link w-full gap-3 text-dark"
+          className="px-3 py-3 flex items-center bg-hover group/link w-full gap-3 text-dark dark:text-white"
         >
           <Icon icon="solar:settings-linear" height={20} />
           Setting
@@ -48,7 +48,7 @@ const Profile = () => {
         <Dropdown.Item
           as={Link}
           to="#"
-          className="px-3 py-3 flex items-center bg-hover group/link w-full gap-3 text-dark"
+          className="px-3 py-3 flex items-center bg-hover group/link w-full gap-3 text-dark dark:text-white"
         >
           <Icon icon="solar:checklist-linear" height={20} />
           My Task
@@ -59,6 +59,7 @@ const Profile = () => {
             className="mt-2 border border-primary text-primary bg-transparent hover:bg-lightprimary outline-none focus:outline-none w-full"
             onClick={logout}
           >
+            <Icon icon="solar:logout-2-outline" height={20} />
             Logout
           </Button>
         </div>

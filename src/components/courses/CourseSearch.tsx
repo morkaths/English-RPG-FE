@@ -4,11 +4,11 @@ import { Icon } from "@iconify/react";
 import type { SearchFilters } from "src/types";
 import { levels, sortOptions } from "src/constants";
 import useTags from "src/hooks/useTags";
-import CardBox from "./CardBox";
+import CardBox from "../common/shared/CardBox";
 
-interface SearchBarProps {
-  onSearch: (filters: SearchFilters) => void;
+interface CourseSearchProps {
   loading?: boolean;
+  onSearch: (filters: SearchFilters) => void;
 }
 
 const SearchIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -18,7 +18,7 @@ const SearchIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-const SearchBar: React.FC<SearchBarProps> = ({ onSearch, loading = false }) => {
+const CourseSearch: React.FC<CourseSearchProps> = ({ onSearch, loading = false }) => {
   const { tags: tagOptions, loading: tagLoading, error: tagError } = useTags();
   const [query, setQuery] = useState("");
   const [showFilters, setShowFilters] = useState(false);
@@ -112,9 +112,9 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, loading = false }) => {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={handleKeyPress}
-              placeholder="Tìm kiếm khóa học, giáo trình, tài liệu..."
+              placeholder="Tìm kiếm khóa học..."
               icon={SearchIcon}
-              className="pl-10 pr-12 h-10 text-base "
+              className="pl-10 pr-12 h-10 text-base"
             />
           </div>
           <div className="flex gap-2 items-center justify-center">
@@ -257,4 +257,4 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, loading = false }) => {
   );
 };
 
-export default SearchBar;
+export default CourseSearch;

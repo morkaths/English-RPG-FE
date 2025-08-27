@@ -71,8 +71,7 @@ const SearchDropdown: React.FC<SearchDropdownProps> = ({ onClose, isModalOpen })
       localStorage.setItem('recentSearches', JSON.stringify(newRecentSearches));
       return newRecentSearches;
     });
-    navigate(`/courses?q=${encodeURIComponent(searchQuery)}`);
-    navigate(paths.courses);
+    navigate(paths.courseSearch({ query: searchQuery }));
     setQuery("");
     onClose?.();
   };
@@ -113,7 +112,7 @@ const SearchDropdown: React.FC<SearchDropdownProps> = ({ onClose, isModalOpen })
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => setIsOpen(true)}
           onKeyDown={handleKeyPress}
-          placeholder="Tìm kiếm khóa học..."
+          placeholder="Nhập từ khóa..."
           icon={SearchIcon}
           className="pl-10 pr-12 h-10 w-full md:w-[280px] lg:w-[350px] xl:w-[400px] dark:bg-darkgray dark:text-white dark:border-gray-700"
         />

@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { Button, Navbar, Drawer, Modal } from "flowbite-react";
 import { Icon } from "@iconify/react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import Profile from "./Profile";
 import Notification from "./Notification";
 import ToggleThemeButton from "./ToggleThemeButton";
@@ -55,23 +55,23 @@ const Header = () => {
               {/* Mobile Toggle Icon */}
               <span
                 onClick={() => setIsOpen(true)}
-                className="h-10 w-10 flex text-black dark:text-white text-opacity-65 xl:hidden hover:text-primary hover:bg-lightprimary rounded-full justify-center items-center cursor-pointer"
+                className="h-10 w-10 flex text-opacity-65 xl:hidden hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full justify-center items-center cursor-pointer transition group"
               >
-                <Icon icon="solar:hamburger-menu-line-duotone" height={21} />
+                <Icon icon="solar:hamburger-menu-line-duotone" height={22} className="text-gray-400 group-hover:text-primary transition-colors" />
               </span>
 
-              {/* Search (PC) */}
+              {/* Search (Desktop) */}
               <div className="hidden md:block">
                 <SearchDropdown />
               </div>
 
               {/* Search Icon (Mobile) */}
               <button
-                className="block md:hidden ml-2 p-2 rounded-full hover:bg-gray-100"
+                className="block md:hidden ml-2 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition group"
                 onClick={() => setShowSearchModal(true)}
                 aria-label="Tìm kiếm"
               >
-                <Icon icon="solar:magnifer-linear" height={22} />
+                <Icon icon="solar:magnifer-linear" height={22} className="text-gray-400 group-hover:text-primary transition-colors" />
               </button>
 
             </div>
@@ -83,12 +83,28 @@ const Header = () => {
               {/* Auth & Profile */}
               {!isAuthenticated ? (
                 <>
-                  <Button as={Link} to={paths.login} size="sm" color="primary" className="rounded-md py-1 px-3">
-                    Đăng nhập
-                  </Button>
-                  <Button as={Link} to={paths.register} size="sm" color="transparent" className="rounded-md py-1 px-3">
-                    Đăng ký
-                  </Button>
+                  {/* Auth (Desktop) */}
+                  <div className="hidden sm:flex items-center space-x-1 lg:space-x-2">
+                    <Button as={Link} to={paths.login} size="sm" color="primary" className="rounded-md py-1 px-3">
+                      Đăng nhập
+                    </Button>
+                    <Button as={Link} to={paths.register} size="sm" color="transparent" className="rounded-md py-1 px-3">
+                      Đăng ký
+                    </Button>
+                  </div>
+                  <div className="sm:hidden">
+                    <Link
+                      to={paths.login}
+                      className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition flex items-center justify-center group"
+                    >
+                      <Icon
+                        icon="solar:user-circle-linear"
+                        height={22}
+                        className="text-gray-400 group-hover:text-primary transition-colors"
+                      />
+                    </Link>
+                  </div>
+
                 </>
               ) : (
                 <>
@@ -110,7 +126,9 @@ const Header = () => {
       >
         <Modal.Header>Search</Modal.Header>
         <Modal.Body>
-          <SearchDropdown isModalOpen={showSearchModal} onClose={() => setShowSearchModal(false)} />
+          <div className="mt-3">
+            <SearchDropdown isModalOpen={showSearchModal} onClose={() => setShowSearchModal(false)} />
+          </div>
         </Modal.Body>
       </Modal>
 

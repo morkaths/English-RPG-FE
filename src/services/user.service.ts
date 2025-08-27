@@ -60,6 +60,11 @@ export const UserService = {
     const response = await RequestUtils.privateDelete(API_CONFIG.endpoints.user.delete(id));
     return response.success;
   },
+  /**
+   * Tìm kiếm người dùng
+   * @param params - tham số tìm kiếm
+   * @returns Promise<User[]>
+   */
   search: async (params: any): Promise<User[]> => {
     const response = await RequestUtils.privateGet<User[]>(API_CONFIG.endpoints.user.search, { params });
     if (response.success && response.data) {

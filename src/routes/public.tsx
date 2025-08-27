@@ -10,9 +10,13 @@ const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
 
 /* Pages */
-const CoursesPage = Loadable(lazy(() => import('../pages/courses')));
-const Dashboard = Loadable(lazy(() => import('../pages/dashboards')));
 const SamplePage = Loadable(lazy(() => import('../pages/sample-page')));
+const Dashboard = Loadable(lazy(() => import('../pages/dashboards')));
+const CoursesPage = Loadable(lazy(() => import('../pages/courses')));
+const CoursePageDetail = Loadable(lazy(() => import('../pages/courses/detail')));
+
+
+// UI page demo
 const Typography = Loadable(lazy(() => import('../pages/typography/Typography')));
 const Table = Loadable(lazy(() => import('../pages/tables/Table')));
 const Form = Loadable(lazy(() => import('../pages/forms')));
@@ -40,6 +44,7 @@ const PublicRoutes: NestedRoute[] = [
       { path: paths.home, element: <Dashboard /> },
       { path: paths.dashboard, element: <Dashboard />, requiresAuth: false },
       { path: paths.courses, element: <CoursesPage /> },
+      { path: paths.courseDetail(':id'), element: <CoursePageDetail /> },
       { path: paths.sample, element: <SamplePage /> },
 
       // UI page demo

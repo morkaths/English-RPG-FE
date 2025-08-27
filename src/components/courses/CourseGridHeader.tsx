@@ -69,34 +69,40 @@ const CourseGridHeader: React.FC<CourseGridHeaderProps> = ({
   setViewMode,
   onClearTag,
 }) => (
-  <div className="flex items-center justify-between mb-6">
-    <div className="flex items-center gap-4">
-      <span className="text-gray-600">
-        {totalCourses} khóa học
-      </span>
-      {/* Render filter badges */}
+  <div className="mb-6">
+    {/* Render filter badges */}
+    <div className="flex flex-wrap gap-2 mt-3">
       {renderFilterBadges(filters, tagOptions, onClearTag)}
     </div>
+    {/* Total & View mode */}
+    <div className="flex flex-row items-center justify-between gap-4 mb-6">
+      <div className="flex flex-row items-center gap-2 flex-1 min-w-0">
+        <span className="text-gray-600 flex-shrink-0">
+          {totalCourses} khóa học
+        </span>
+      </div>
 
-    <div className="flex items-center gap-2">
-      <Button
-        color={viewMode === 'grid' ? 'primary' : 'gray'}
-        size="sm"
-        onClick={() => setViewMode('grid')}
-        aria-label="Chế độ lưới"
-      >
-        <Icon icon="mdi:grid" className="w-4 h-4" />
-      </Button>
-      <Button
-        color={viewMode === 'list' ? 'primary' : 'gray'}
-        size="sm"
-        onClick={() => setViewMode('list')}
-        aria-label="Chế độ danh sách"
-      >
-        <Icon icon="mdi:view-list" className="w-4 h-4" />
-      </Button>
+      <div className="flex items-center gap-2 flex-shrink-0">
+        <Button
+          color={viewMode === 'grid' ? 'primary' : 'gray'}
+          size="sm"
+          onClick={() => setViewMode('grid')}
+          aria-label="Chế độ lưới"
+        >
+          <Icon icon="mdi:grid" className="w-4 h-4" />
+        </Button>
+        <Button
+          color={viewMode === 'list' ? 'primary' : 'gray'}
+          size="sm"
+          onClick={() => setViewMode('list')}
+          aria-label="Chế độ danh sách"
+        >
+          <Icon icon="mdi:view-list" className="w-4 h-4" />
+        </Button>
+      </div>
     </div>
   </div>
+
 );
 
 export default CourseGridHeader;
