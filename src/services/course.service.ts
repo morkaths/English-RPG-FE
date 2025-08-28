@@ -5,8 +5,8 @@ import { courses } from 'src/constants';
 
 export const CourseService = {
   /**
-   * Lấy tất cả khóa học
-   * @returns Promise<Course[]>
+   * Get all courses
+   * @returns The list of courses if successful, an empty array otherwise
    */
   getAll: async (): Promise<Course[]> => {
     const response = await RequestUtils.privateGet<Course[]>(API_CONFIG.endpoints.course.getAll);
@@ -16,9 +16,9 @@ export const CourseService = {
     return [];
   },
   /**
-   * Lấy khóa học theo ID
-   * @param id - id của khóa học
-   * @returns Promise<Course | null>
+   * Get course by ID
+   * @param id - Course ID
+   * @returns The course if found, null otherwise
    */
   getById: async (id: string): Promise<Course | null> => {
     const response = await RequestUtils.privateGet<Course>(API_CONFIG.endpoints.course.getById(id));
@@ -28,9 +28,9 @@ export const CourseService = {
     throw new Error(response.message || "Failed to fetch course");
   },
   /**
-   * Tạo khóa học mới
-   * @param data - thông tin khóa học
-   * @returns Promise<Course | null>
+   * Create a new course
+   * @param data - Course information
+   * @returns The created course if successful, null otherwise
    */
   create: async (data: Partial<Course>): Promise<Course | null> => {
     const response = await RequestUtils.privatePost<Course>(API_CONFIG.endpoints.course.create, data);
@@ -40,10 +40,10 @@ export const CourseService = {
     throw new Error(response.message || "Failed to create course");
   },
   /**
-   * Cập nhật thông tin khóa học
-   * @param id - id của khóa học
-   * @param data - thông tin khóa học
-   * @returns Promise<Course | null>
+   * Update course information
+   * @param id - Course ID
+   * @param data - Course information
+   * @returns The updated course if successful, null otherwise
    */
   update: async (id: string, data: Partial<Course>): Promise<Course | null> => {
     const response = await RequestUtils.privatePut<Course>(API_CONFIG.endpoints.course.update(id), data);
@@ -53,18 +53,18 @@ export const CourseService = {
     throw new Error(response.message || "Failed to update course");
   },
   /**
-   * Xoá khóa học
-   * @param id - id của khóa học
-   * @returns Promise<boolean>
+   * Delete a course
+   * @param id - Course ID
+   * @returns True if deletion is successful, false otherwise
    */
   delete: async (id: string): Promise<boolean> => {
     const response = await RequestUtils.privateDelete(API_CONFIG.endpoints.course.delete(id));
     return response.success;
   },
   /**
-   * Tìm kiếm khóa học
-   * @param params - tham số tìm kiếm
-   * @returns Promise<Course[]>
+   * Search courses
+   * @param params - Search parameters
+   * @returns The list of courses matching the search criteria if successful, an empty array otherwise
    */
   search: async (params: any): Promise<Course[]> => {
     const response = await RequestUtils.privateGet<Course[]>(API_CONFIG.endpoints.course.search, { params });

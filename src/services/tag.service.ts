@@ -4,6 +4,10 @@ import { API_CONFIG } from 'src/config/api.config';
 import { tagOptions } from 'src/constants';
 
 export const TagService = {
+  /**
+   * Get all tags
+   * @returns The list of tags if successful, an empty array otherwise
+   */
   getAll: async (): Promise<Tag[]> => {
     const response = await RequestUtils.privateGet<Tag[]>(API_CONFIG.endpoints.tag.getAll);
     if (response.success && response.data) {
@@ -11,6 +15,12 @@ export const TagService = {
     }
     return [];
   },
+
+  /**
+   * Get tag by ID
+   * @param id - Tag ID
+   * @returns The tag if found, null otherwise
+   */
   getById: async (id: string): Promise<Tag | null> => {
     const response = await RequestUtils.privateGet<Tag>(API_CONFIG.endpoints.tag.getById(id));
     if (response.success && response.data) {
@@ -18,6 +28,11 @@ export const TagService = {
     }
     throw new Error(response.message || "Failed to fetch tag");
   },
+  /**
+   * Create a new tag
+   * @param data - Tag information
+   * @returns The created tag if successful, null otherwise
+   */
   create: async (data: Omit<Tag, 'id'>): Promise<Tag | null> => {
     const response = await RequestUtils.privatePost<Tag>(API_CONFIG.endpoints.tag.create, data);
     if (response.success && response.data) {
@@ -25,6 +40,12 @@ export const TagService = {
     }
     throw new Error(response.message || "Failed to create tag");
   },
+  /**
+   * Update tag information
+   * @param id - Tag ID
+   * @param data - Tag information
+   * @returns The updated tag if successful, null otherwise
+   */
   update: async (id: string, data: Partial<Tag>): Promise<Tag | null> => {
     const response = await RequestUtils.privatePut<Tag>(API_CONFIG.endpoints.tag.update(id), data);
     if (response.success && response.data) {
@@ -32,6 +53,11 @@ export const TagService = {
     }
     throw new Error(response.message || "Failed to update tag");
   },
+  /**
+   * Delete a tag
+   * @param id - Tag ID
+   * @returns True if deletion is successful, false otherwise
+   */
   delete: async (id: string): Promise<boolean> => {
     const response = await RequestUtils.privateDelete(API_CONFIG.endpoints.tag.delete(id));
     if (response.success) {
