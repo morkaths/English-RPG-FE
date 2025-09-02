@@ -29,12 +29,11 @@ const CourseSearch: React.FC<CourseSearchProps> = ({ onSearch, loading = false }
     sortBy: "relevance",
   });
 
-  // Xử lý tìm kiếm
   const handleSearch = useCallback(() => {
     onSearch({ ...filters, query });
   }, [filters, query, onSearch]);
 
-  // Tìm kiếm khi có thay đổi
+  // Auto search when typing stops for 1 second
   useEffect(() => {
     if (query.trim()) {
       const timeoutId = setTimeout(() => {
@@ -50,6 +49,7 @@ const CourseSearch: React.FC<CourseSearchProps> = ({ onSearch, loading = false }
     if (e.key === "Enter") handleManualSearch();
   };
 
+  // Filter Handlers
   const handleLevelChange = (level: string, checked: boolean) => {
     setFilters((prev) => ({
       ...prev,
@@ -68,6 +68,7 @@ const CourseSearch: React.FC<CourseSearchProps> = ({ onSearch, loading = false }
     }
   };
 
+  // Remove tag from selected tags
   const handleTagRemove = (val: string) => {
     setFilters(prev => ({
       ...prev,
@@ -75,6 +76,7 @@ const CourseSearch: React.FC<CourseSearchProps> = ({ onSearch, loading = false }
     }));
   };
 
+  // Clear all filters
   const clearFilters = () => {
     setQuery("");
     setFilters({
@@ -85,6 +87,7 @@ const CourseSearch: React.FC<CourseSearchProps> = ({ onSearch, loading = false }
     });
   };
 
+  // Count of active filters
   const activeFiltersCount = () => {
     let count = 0;
     if (filters.level && filters.level.length > 0) count++;
@@ -220,14 +223,15 @@ const CourseSearch: React.FC<CourseSearchProps> = ({ onSearch, loading = false }
                         return tag ? (
                           <span
                             key={tag._id}
-                            className="px-2 py-1 rounded text-xs flex items-center"
-                            style={{ background: tag.color, color: "#fff" }}
+                            className="py-1 px-2 rounded-full flex items-center"
+                            style={{ background: `${tag.color}30`, color: tag.color }}
                           >
                             {tag.name}
                             <button
                               type="button"
-                              className="ml-1 text-white/80 hover:text-red-200"
+                              className="ml-1 hover:text-red-500"
                               onClick={() => handleTagRemove(tag._id)}
+                              aria-label="Xóa tag"
                             >
                               <Icon icon="mdi:close" width={14} height={14} />
                             </button>

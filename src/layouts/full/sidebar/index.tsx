@@ -1,12 +1,14 @@
 import { Sidebar } from 'flowbite-react';
 import React from 'react';
 import SimpleBar from 'simplebar-react';
+import { useTranslation } from 'react-i18next';
 import FullLogo from '../shared/logo/FullLogo';
 import NavItems from './NavItems';
 import Upgrade from "./Upgrade";
 import SidebarContent from './SidebarContent';
 
 const SidebarLayout = () => {
+  const { t } = useTranslation();
   return (
     <>
       <div className="xl:block hidden">
@@ -25,7 +27,7 @@ const SidebarLayout = () => {
                     <div className="caption" key={item.heading}>
                       <React.Fragment key={index}>
                         <h5 className="text-link dark:text-white/70 caption font-semibold leading-6 tracking-widest text-xs pb-2 uppercase">
-                          {item.heading}
+                          {item.heading ? t(`sidebar.${item.heading.toLowerCase()}`) : ''}
                         </h5>
                         {item.children?.map((child, index) => (
                           <React.Fragment key={child.id && index}>

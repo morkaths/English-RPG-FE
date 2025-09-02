@@ -1,6 +1,8 @@
-import * as RequestUtils from '../utils/request';
+import * as ApiRequest from './index';
 import type { User } from '../types';
 import { API_CONFIG } from 'src/config/api.config';
+
+const SERVICE: ApiRequest.ApiService = 'user';
 
 export const UserService = {
   /**
@@ -8,7 +10,7 @@ export const UserService = {
    * @returns Promise<User[]>
    */
   getAll: async (): Promise<User[]> => {
-    const response = await RequestUtils.privateGet<User[]>(API_CONFIG.endpoints.user.getAll);
+    const response = await ApiRequest.apiGet<User[]>(SERVICE, API_CONFIG.endpoints.user.getAll);
     if (response.success && response.data) {
       return response.data;
     }
@@ -20,7 +22,7 @@ export const UserService = {
    * @returns Promise<User | null>
    */
   getById: async (id: string): Promise<User | null> => {
-    const response = await RequestUtils.privateGet<User>(API_CONFIG.endpoints.user.getById(id));
+    const response = await ApiRequest.apiGet<User>(SERVICE, API_CONFIG.endpoints.user.getById(id));
     if (response.success && response.data) {
       return response.data;
     }
@@ -32,7 +34,7 @@ export const UserService = {
    * @returns Promise<User | null>
    */
   create: async (data: Partial<User>): Promise<User | null> => {
-    const response = await RequestUtils.privatePost<User>(API_CONFIG.endpoints.user.create, data);
+    const response = await ApiRequest.apiPost<User>(SERVICE, API_CONFIG.endpoints.user.create, data);
     if (response.success && response.data) {
       return response.data;
     }
@@ -45,7 +47,7 @@ export const UserService = {
    * @returns Promise<User | null>
    */
   update: async (id: string, data: Partial<User>): Promise<User | null> => {
-    const response = await RequestUtils.privatePut<User>(API_CONFIG.endpoints.user.update(id), data);
+    const response = await ApiRequest.apiPut<User>(SERVICE, API_CONFIG.endpoints.user.update(id), data);
     if (response.success && response.data) {
       return response.data;
     }
@@ -57,7 +59,7 @@ export const UserService = {
    * @returns Promise<boolean>
    */
   delete: async (id: string): Promise<boolean> => {
-    const response = await RequestUtils.privateDelete(API_CONFIG.endpoints.user.delete(id));
+    const response = await ApiRequest.apiDelete(SERVICE, API_CONFIG.endpoints.user.delete(id));
     return response.success;
   },
   /**
@@ -66,7 +68,7 @@ export const UserService = {
    * @returns Promise<User[]>
    */
   search: async (params: any): Promise<User[]> => {
-    const response = await RequestUtils.privateGet<User[]>(API_CONFIG.endpoints.user.search, { params });
+    const response = await ApiRequest.apiGet<User[]>(SERVICE, API_CONFIG.endpoints.user.search, { params }, 'public');
     if (response.success && response.data) {
       return response.data;
     }

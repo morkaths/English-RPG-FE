@@ -1,43 +1,49 @@
-import * as RequestUtils from '../utils/request';
+import * as ApiRequest from './index';
 import type { Tag } from '../types';
 import { API_CONFIG } from 'src/config/api.config';
 import { tagOptions } from 'src/constants';
 
+const SERVICE: ApiRequest.ApiService = 'catalog';
+
 export const TagService = {
   getAll: async (): Promise<Tag[]> => {
-    const response = await RequestUtils.privateGet<Tag[]>(API_CONFIG.endpoints.tag.getAll);
+    const response = await ApiRequest.apiGet<Tag[]>(SERVICE, API_CONFIG.endpoints.tag.getAll, undefined, 'public');
     if (response.success && response.data) {
       return response.data;
     }
     return [];
   },
   getById: async (id: string): Promise<Tag | null> => {
-    const response = await RequestUtils.privateGet<Tag>(API_CONFIG.endpoints.tag.getById(id));
+    const response = await ApiRequest.apiGet<Tag>(SERVICE, API_CONFIG.endpoints.tag.getById(id), undefined, 'public');
     if (response.success && response.data) {
       return response.data;
     }
     throw new Error(response.message || "Failed to fetch tag");
   },
-  create: async (data: Omit<Tag, 'id'>): Promise<Tag | null> => {
-    const response = await RequestUtils.privatePost<Tag>(API_CONFIG.endpoints.tag.create, data);
+  search: async (params: any): Promise<Tag[]> => {
+    const response = await ApiRequest.apiGet<Tag[]>(SERVICE, API_CONFIG.endpoints.tag.search, params, 'public');
+    if (response.success && response.data) {
+      return response.data;
+    }
+    return [];
+  },
+  create: async (data: Partial<Tag>): Promise<Tag | null> => {
+    const response = await ApiRequest.apiPost<Tag>(SERVICE, API_CONFIG.endpoints.tag.create, data);
     if (response.success && response.data) {
       return response.data;
     }
     throw new Error(response.message || "Failed to create tag");
   },
   update: async (id: string, data: Partial<Tag>): Promise<Tag | null> => {
-    const response = await RequestUtils.privatePut<Tag>(API_CONFIG.endpoints.tag.update(id), data);
+    const response = await ApiRequest.apiPut<Tag>(SERVICE, API_CONFIG.endpoints.tag.update(id), data);
     if (response.success && response.data) {
       return response.data;
     }
     throw new Error(response.message || "Failed to update tag");
   },
   delete: async (id: string): Promise<boolean> => {
-    const response = await RequestUtils.privateDelete(API_CONFIG.endpoints.tag.delete(id));
-    if (response.success) {
-      return true;
-    }
-    throw new Error(response.message || "Failed to delete tag");
+    const response = await ApiRequest.apiDelete(SERVICE, API_CONFIG.endpoints.tag.delete(id));
+    return response.success;
   }
 };
 
@@ -80,5 +86,12 @@ export const TagServiceFake = {
         resolve(false);
       }
     }, 200));
-  }
+  },
+  search: async (params: any): Promise<Tag[]> => {
+    return new Promise(resolve => setTimeout(() => {
+      const keyword = params?.name?.toLowerCase?.() || '';
+      const result = tagOptions.filter(t => t.name.toLowerCase().includes(keyword));
+      resolve(result);
+    }, 200));
+  },
 };

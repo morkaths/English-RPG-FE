@@ -36,145 +36,6 @@ export const characters: Types.Character[] = [
   { _id: "6", name: "Orc", figure: "orc.png", hp: 120, atk: 25, def: 18 }
 ];
 
-export const quizzes: Types.Quiz[] = [
-  {
-    _id: "1",
-    lessonId: "1",
-    type: "choice",
-    question: "What do you say to offer a guest a drink?",
-    timeLimit: 30,
-    rewardExp: 100,
-    options: [
-      { _id: "1", text: "Would you like some water?", isCorrect: true },
-      { _id: "2", text: "Goodbye!", isCorrect: false },
-    ],
-  },
-  {
-    _id: "2",
-    lessonId: "1",
-    type: "fill_blank",
-    question: "She is drinking ____.",
-    timeLimit: 30,
-    rewardExp: 100,
-    answers: [
-      { _id: "1", text: "water" }
-    ]
-  },
-  {
-    _id: "3",
-    lessonId: "1",
-    type: "matching",
-    question: "Match the English words with their Vietnamese meanings.",
-    timeLimit: 40,
-    rewardExp: 120,
-    pairs: [
-      { _id: "1", left: "Water", right: "Nước" },
-      { _id: "2", left: "Milk", right: "Sữa" },
-      { _id: "3", left: "Tea", right: "Trà" },
-    ]
-  },
-  {
-    _id: "4",
-    lessonId: "2",
-    type: "choice",
-    question: "How do you greet someone in the morning?",
-    timeLimit: 20,
-    rewardExp: 80,
-    options: [
-      { _id: "1", text: "Good morning!", isCorrect: true },
-      { _id: "2", text: "Good night!", isCorrect: false },
-      { _id: "3", text: "See you!", isCorrect: false },
-    ],
-  },
-  {
-    _id: "5",
-    lessonId: "2",
-    type: "fill_blank",
-    question: "____ morning!",
-    timeLimit: 20,
-    rewardExp: 80,
-    answers: [
-      { _id: "1", text: "Good" }
-    ]
-  },
-  {
-    _id: "6",
-    lessonId: "2",
-    type: "choice",
-    question: "Which sentence is used to introduce yourself?",
-    timeLimit: 25,
-    rewardExp: 90,
-    options: [
-      { _id: "1", text: "My name is Anna.", isCorrect: true },
-      { _id: "2", text: "How old are you?", isCorrect: false },
-      { _id: "3", text: "Nice to meet you.", isCorrect: false },
-    ],
-  },
-  {
-    _id: "7",
-    lessonId: "3",
-    type: "fill_blank",
-    question: "My name is ____.",
-    timeLimit: 25,
-    rewardExp: 90,
-    answers: [
-      { _id: "1", text: "Anna" }
-    ]
-  },
-  {
-    _id: "8",
-    lessonId: "3",
-    type: "matching",
-    question: "Match the English sentences with their Vietnamese meanings.",
-    timeLimit: 40,
-    rewardExp: 120,
-    pairs: [
-      { _id: "1", left: "My name is Anna.", right: "Tên tôi là Anna." },
-      { _id: "2", left: "How old are you?", right: "Bạn bao nhiêu tuổi?" },
-      { _id: "3", left: "Nice to meet you.", right: "Rất vui được gặp bạn." },
-    ]
-  },
-  {
-    _id: "9",
-    lessonId: "3",
-    type: "choice",
-    question: "My name is ____.",
-    timeLimit: 25,
-    rewardExp: 90,
-    options: [
-      { _id: "1", text: "Anna", isCorrect: true },
-      { _id: "2", text: "John", isCorrect: false },
-      { _id: "3", text: "Mary", isCorrect: false },
-    ]
-  }
-
-];
-
-export const lessons: Types.Lesson[] = [
-  {
-    _id: "1",
-    title: "Mời khách xơi nước",
-    tags: [],
-    content: "Bài học về cách mời khách lịch sự.",
-    quizzes: []
-  },
-  {
-    _id: "2",
-    title: "Chào hỏi cơ bản",
-    tags: [],
-    content: "Bài học về các câu chào hỏi thông dụng.",
-    quizzes: []
-  },
-  {
-    _id: "3",
-    title: "Giới thiệu bản thân",
-    tags: [],
-    content: "Bài học về cách giới thiệu bản thân.",
-    quizzes: []
-  },
-
-];
-
 export const courses: Types.Course[] = [
   {
     _id: "1",
@@ -183,7 +44,6 @@ export const courses: Types.Course[] = [
     thumbnail: "",
     description: "Khóa học tiếng Anh giao tiếp cho người mới bắt đầu.",
     level: "A1",
-    lessons: [ "1", "2", "3" ],
     rewardCoins: 100,
     rewardItems: [],
     createdAt: new Date(),
@@ -196,7 +56,6 @@ export const courses: Types.Course[] = [
     thumbnail: "",
     description: "Khóa học tiếng Anh giao tiếp cho người mới bắt đầu.",
     level: "A2",
-    lessons: [ "1", "2", "3" ],
     rewardCoins: 100,
     rewardItems: [],
     createdAt: new Date(),
@@ -209,7 +68,6 @@ export const courses: Types.Course[] = [
     thumbnail: "",
     description: "Khóa học tiếng Anh giao tiếp cho người mới bắt đầu.",
     level: "B1",
-    lessons: [ "1", "2", "3" ],
     rewardCoins: 100,
     rewardItems: [],
     createdAt: new Date(),
@@ -222,7 +80,6 @@ export const courses: Types.Course[] = [
     thumbnail: "",
     description: "Khóa học tiếng Anh giao tiếp cho người mới bắt đầu.",
     level: "B2",
-    lessons: [ "1", "2", "3" ],
     rewardCoins: 100,
     rewardItems: [],
     createdAt: new Date(),
@@ -235,7 +92,6 @@ export const courses: Types.Course[] = [
     thumbnail: "",
     description: "Khóa học tiếng Anh giao tiếp cho người mới bắt đầu.",
     level: "C1",
-    lessons: [ "1", "2", "3" ],
     rewardCoins: 100,
     rewardItems: [],
     createdAt: new Date(),
@@ -248,10 +104,215 @@ export const courses: Types.Course[] = [
     thumbnail: "",
     description: "Khóa học tiếng Anh giao tiếp cho người mới bắt đầu.",
     level: "C2",
-    lessons: [ "1", "2", "3" ],
     rewardCoins: 100,
     rewardItems: [],
     createdAt: new Date(),
     updatedAt: new Date(),
   },
+];
+
+export const lessons: Types.Lesson[] = [
+  {
+    _id: "1",
+    courseId: "1",
+    title: "Greating",
+    tags: ["1", "3", "8"],
+    content: "Greeting is the first step in communication.",
+    vocabularies: ["1", "2", "3", "4"],
+    grammars: [],
+    quizzes: [],
+  },
+  {
+    _id: "2",
+    courseId: "1",
+    title: "Introductions",
+    tags: ["3", "8"],
+    content: "Introduction is how you tell others about yourself.",
+    vocabularies: ["1", "2"],
+    grammars: [],
+    quizzes: []
+  },
+  {
+    _id: "3",
+    courseId: "1",
+    title: "Jobs",
+    tags: ["3", "8"],
+    content: "Learning vocabulary related to jobs can help you in conversations about work.",
+    vocabularies: ["3", "4"],
+    grammars: [],
+    quizzes: []
+  },
+
+];
+
+export const vocabularies: Types.Vocabulary[] = [
+  {
+    _id: "1",
+    code: "en",
+    word: "Hello",
+    quizzes: ["1", "2"],
+    phonetic: "həˈloʊ",
+    example: "Hello! How are you?",
+    imageUrl: ""
+  },
+  {
+    _id: "2",
+    code: "en",
+    word: "Goodbye",
+    quizzes: ["3", "4"],
+    phonetic: "ɡʊdˈbaɪ",
+    example: "Goodbye! See you later.",
+    imageUrl: ""
+  },
+  {
+    _id: "3",
+    code: "en",
+    word: "Please",
+    quizzes: ["5", "6"],
+    phonetic: "pliːz",
+    example: "Please help me with this task.",
+    imageUrl: ""
+  },
+  {
+    _id: "4",
+    code: "en",
+    word: "Thank you",
+    quizzes: ["7", "8"],
+    phonetic: "ˈθæŋk juː",
+    example: "Thank you for your assistance.",
+    imageUrl: ""
+  },
+];
+
+export const translations: Types.Translation[] = [
+  { _id: "1", vocabularyId: "1", code: "vi", meaning: "Xin chào" },
+  { _id: "2", vocabularyId: "2", code: "vi", meaning: "Tạm biệt" },
+  { _id: "3", vocabularyId: "3", code: "vi", meaning: "Làm ơn" },
+  { _id: "4", vocabularyId: "4", code: "vi", meaning: "Cảm ơn" },
+];
+
+export const grammars: Types.Grammar[] = [
+  {
+    _id: "1",
+    title: "Present Simple",
+    explanation: "Describe habits, unchanging situations, general truths, and fixed arrangements.",
+    quizzes: ["9", "10"]
+  },
+  {
+    _id: "2",
+    title: "Past Simple",
+    explanation: "Describe completed actions or events that happened at a specific time in the past.",
+    quizzes: ["11", "12"]
+  },
+  {
+    _id: "3",
+    title: "Future Simple",
+    explanation: "Describe actions that will happen at a specific time in the future.",
+    quizzes: ["13", "14"]
+  }
+];
+
+export const quizzes: Types.Quiz[] = [
+  {
+    _id: "1",
+    type: "choice",
+    question: "What do you say to offer a guest a drink?",
+    timeLimit: 30,
+    rewardExp: 100,
+    options: [
+      { _id: "1", text: "Would you like some water?", isCorrect: true },
+      { _id: "2", text: "Goodbye!", isCorrect: false },
+    ],
+  },
+  {
+    _id: "2",
+    type: "fill_blank",
+    question: "She is drinking ____.",
+    timeLimit: 30,
+    rewardExp: 100,
+    answers: [
+      { _id: "1", text: "water" }
+    ]
+  },
+  {
+    _id: "3",
+    type: "matching",
+    question: "Match the English words with their Vietnamese meanings.",
+    timeLimit: 40,
+    rewardExp: 120,
+    pairs: [
+      { _id: "1", left: "Water", right: "Nước" },
+      { _id: "2", left: "Milk", right: "Sữa" },
+      { _id: "3", left: "Tea", right: "Trà" },
+    ]
+  },
+  {
+    _id: "4",
+    type: "choice",
+    question: "How do you greet someone in the morning?",
+    timeLimit: 20,
+    rewardExp: 80,
+    options: [
+      { _id: "1", text: "Good morning!", isCorrect: true },
+      { _id: "2", text: "Good night!", isCorrect: false },
+      { _id: "3", text: "See you!", isCorrect: false },
+    ],
+  },
+  {
+    _id: "5",
+    type: "fill_blank",
+    question: "____ morning!",
+    timeLimit: 20,
+    rewardExp: 80,
+    answers: [
+      { _id: "1", text: "Good" }
+    ]
+  },
+  {
+    _id: "6",
+    type: "choice",
+    question: "Which sentence is used to introduce yourself?",
+    timeLimit: 25,
+    rewardExp: 90,
+    options: [
+      { _id: "1", text: "My name is Anna.", isCorrect: true },
+      { _id: "2", text: "How old are you?", isCorrect: false },
+      { _id: "3", text: "Nice to meet you.", isCorrect: false },
+    ],
+  },
+  {
+    _id: "7",
+    type: "fill_blank",
+    question: "My name is ____.",
+    timeLimit: 25,
+    rewardExp: 90,
+    answers: [
+      { _id: "1", text: "Anna" }
+    ]
+  },
+  {
+    _id: "8",
+    type: "matching",
+    question: "Match the English sentences with their Vietnamese meanings.",
+    timeLimit: 40,
+    rewardExp: 120,
+    pairs: [
+      { _id: "1", left: "My name is Anna.", right: "Tên tôi là Anna." },
+      { _id: "2", left: "How old are you?", right: "Bạn bao nhiêu tuổi?" },
+      { _id: "3", left: "Nice to meet you.", right: "Rất vui được gặp bạn." },
+    ]
+  },
+  {
+    _id: "9",
+    type: "choice",
+    question: "My name is ____.",
+    timeLimit: 25,
+    rewardExp: 90,
+    options: [
+      { _id: "1", text: "Anna", isCorrect: true },
+      { _id: "2", text: "John", isCorrect: false },
+      { _id: "3", text: "Mary", isCorrect: false },
+    ]
+  }
+
 ];

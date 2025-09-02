@@ -1,8 +1,7 @@
-
 /**
- * Lấy giá trị cookie dựa trên tên
- * @param name Tên cookie cần lấy
- * @returns Giá trị cookie hoặc null nếu không tồn tại
+ * Get the value of a cookie by name
+ * @param name The name of the cookie
+ * @returns The cookie value or null if not found
  */
 export function getCookie(name: string): string | null {
   const nameEQ = name + "=";
@@ -18,13 +17,13 @@ export function getCookie(name: string): string | null {
 }
 
 /**
- * Đặt cookie mới
- * @param name Tên cookie
- * @param value Giá trị cookie
- * @param days Số ngày tồn tại (mặc định 1 ngày)
- * @param path Đường dẫn cookie (mặc định '/')
- * @param secure Bảo mật cookie (chỉ HTTPS)
- * @param sameSite Chính sách Same-Site
+ * Set a new cookie
+ * @param name Cookie name
+ * @param value Cookie value
+ * @param days Number of days to keep (default 1 day)
+ * @param path Cookie path (default '/')
+ * @param secure Secure cookie (HTTPS only)
+ * @param sameSite SameSite policy
  */
 export function setCookie(
   name: string,
@@ -49,25 +48,25 @@ export function setCookie(
 }
 
 /**
- * Xóa cookie
- * @param name Tên cookie cần xóa
- * @param path Đường dẫn cookie (mặc định '/')
+ * Delete a cookie
+ * @param name Cookie name to delete
+ * @param path Cookie path (default '/')
  */
 export function deleteCookie(name: string, path: string = '/'): void {
   setCookie(name, '', -1, path);
 }
 
 /**
- * Kiểm tra xem cookie có tồn tại không
- * @param name Tên cookie cần kiểm tra
- * @returns True nếu cookie tồn tại, ngược lại false
+ * Check if a cookie exists
+ * @param name Cookie name to check
+ * @returns True if the cookie exists, otherwise false
  */
 export function hasCookie(name: string): boolean {
   return getCookie(name) !== null;
 }
 
 /**
- * Xóa tất cả cookie
+ * Clear all cookies
  */
 export function clearAllCookies(): void {
   const cookies = document.cookie.split(';');

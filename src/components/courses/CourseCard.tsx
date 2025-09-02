@@ -1,18 +1,19 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Badge, Card } from "flowbite-react";
-import { Course } from 'src/types';
+import type { Course, Tag } from 'src/types';
 import paths from 'src/config/path.config';
 import { getImageUrl } from "src/utils/image";
-import { tagOptions } from "src/constants";
 
 interface CourseCardProps {
     course: Course;
+    tags: Tag[];
     viewMode?: 'grid' | 'list';
 }
 
-const CourseCard: React.FC<CourseCardProps> = ({ course, viewMode = 'grid' }) => {
+const CourseCard: React.FC<CourseCardProps> = ({ course, tags, viewMode = 'grid' }) => {
     const navigate = useNavigate();
+    // const { tags } = useTags();
 
     if (viewMode === 'grid') {
         return (
@@ -23,7 +24,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, viewMode = 'grid' }) =>
                 <div className="relative">
                     <div className="aspect-video w-full overflow-hidden rounded-xl">
                         <img
-                            src={getImageUrl(course.thumbnail)}
+                            src={getImageUrl('catalog', course.thumbnail)}
                             alt={course.title}
                             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                             onError={(e) => {
@@ -43,7 +44,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, viewMode = 'grid' }) =>
                 <div className="pb-2 px-4 pt-4">
                     <div className="flex items-start justify-between gap-2 mb-2">
                         <Badge color="gray" className="text-xs flex items-center gap-1 px-4">
-                            {course.lessons.length} Bài học
+                            {200} Bài học
                         </Badge>
                         <Badge color="primary" className="text-xs flex gap-1 px-4">
                             {course.level}
@@ -61,7 +62,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, viewMode = 'grid' }) =>
 
                     <div className="flex flex-wrap gap-1 mb-2">
                         {course.tags?.slice(0, 3).map((tagId, index) => {
-                            const tag = tagOptions.find(t => t._id === tagId);
+                            const tag = tags.find(t => t._id === tagId);
                             if (!tag) return null;
                             return (
                                 <Badge
@@ -93,7 +94,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, viewMode = 'grid' }) =>
                 <div className="relative w-full sm:w-48 md:w-56 lg:w-64 flex-shrink-0 flex justify-center">
                     <div className="aspect-video w-full overflow-hidden rounded-xl">
                         <img
-                            src={getImageUrl(course.thumbnail)}
+                            src={getImageUrl('catalog', course.thumbnail)}
                             alt={course.title}
                             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                             onError={(e) => {
@@ -113,9 +114,9 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, viewMode = 'grid' }) =>
                 <div className="flex-1 p-4 sm:p-6 flex flex-col">
                     <div className="flex items-start justify-between mb-2">
                         <div className="flex items-center gap-2 flex-wrap">
-                            <Badge color="gray" className="text-xs flex items-center gap-1 px-4">
+                            {/* <Badge color="gray" className="text-xs flex items-center gap-1 px-4">
                                 {course.lessons.length} Bài học
-                            </Badge>
+                            </Badge> */}
                             <Badge color="primary" className="text-xs flex gap-1 px-4">
                                 {course.level}
                             </Badge>
@@ -132,7 +133,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, viewMode = 'grid' }) =>
 
                     <div className="flex flex-wrap gap-1 mb-2">
                         {course.tags?.slice(0, 3).map((tagId, index) => {
-                            const tag = tagOptions.find(t => t._id === tagId);
+                            const tag = tags.find(t => t._id === tagId);
                             if (!tag) return null;
                             return (
                                 <Badge

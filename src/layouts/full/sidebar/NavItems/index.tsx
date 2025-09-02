@@ -1,8 +1,9 @@
 import React from "react";
-import type { ChildItem } from "src/types/layout/sidebar";
+import { Link, useLocation } from "react-router";
 import { Sidebar } from "flowbite-react";
 import { Icon } from "@iconify/react";
-import { Link, useLocation } from "react-router";
+import { useTranslation } from 'react-i18next';
+import type { ChildItem } from "src/types/layout/sidebar";
 
 
 
@@ -13,6 +14,7 @@ interface NavItemsProps {
 const NavItems: React.FC<NavItemsProps> = ({ item }) => {
   const location = useLocation();
   const pathname = location.pathname;
+  const { t } = useTranslation();
 
   return (
     <>
@@ -40,7 +42,7 @@ const NavItems: React.FC<NavItemsProps> = ({ item }) => {
           <span
             className={`max-w-36 overflow-hidden`}
           >
-            {item.name}
+            {item.name ? t(`sidebar.${item.name.toLowerCase()}`) : ''}
           </span>
         </span> 
       </Sidebar.Item>

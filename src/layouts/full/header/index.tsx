@@ -1,18 +1,21 @@
 
 import { useState, useEffect } from "react";
+import { useTranslation } from 'react-i18next';
 import { Button, Navbar, Drawer, Modal } from "flowbite-react";
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
+import paths from "src/config/path.config";
+import { useAuth } from "src/context/AuthContext";
+import MobileSidebar from "../sidebar/MobileSidebar";
+import SearchDropdown from "./SearchDropdown";
+import Language from "./Language";
 import Profile from "./Profile";
 import Notification from "./Notification";
 import ToggleThemeButton from "./ToggleThemeButton";
-import MobileSidebar from "../sidebar/MobileSidebar";
-import paths from "src/config/path.config";
-import { useAuth } from "src/context/AuthContext";
-import SearchDropdown from "./SearchDropdown";
 
 
 const Header = () => {
+  const { t } = useTranslation();
   const [isSticky, setIsSticky] = useState(false);
   const { isAuthenticated } = useAuth();
   // mobile-sidebar
@@ -80,16 +83,19 @@ const Header = () => {
               {/* Toggle Mode */}
               <ToggleThemeButton />
 
+              {/* Language Switcher */}
+              <Language />
+
               {/* Auth & Profile */}
               {!isAuthenticated ? (
                 <>
                   {/* Auth (Desktop) */}
                   <div className="hidden sm:flex items-center space-x-1 lg:space-x-2">
                     <Button as={Link} to={paths.login} size="sm" color="primary" className="rounded-md py-1 px-3">
-                      Đăng nhập
+                      {t('login')}
                     </Button>
                     <Button as={Link} to={paths.register} size="sm" color="transparent" className="rounded-md py-1 px-3">
-                      Đăng ký
+                      {t('register')}
                     </Button>
                   </div>
                   <div className="sm:hidden">
@@ -121,12 +127,11 @@ const Header = () => {
       <Modal
         show={showSearchModal}
         onClose={() => setShowSearchModal(false)}
-        size="xl"
         popup
       >
-        <Modal.Header>Search</Modal.Header>
+        <Modal.Header className="px-6 pb-4">Search</Modal.Header>
         <Modal.Body>
-          <div className="mt-3">
+          <div className="mt-1 space-y-6">
             <SearchDropdown isModalOpen={showSearchModal} onClose={() => setShowSearchModal(false)} />
           </div>
         </Modal.Body>

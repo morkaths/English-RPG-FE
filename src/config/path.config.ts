@@ -32,6 +32,10 @@ const paths = {
     return `/courses?${search.toString()}`;
   },
 
+  // Lessons
+  lessons: "/lessons",
+  lessonDetail: (id: string) => `/lessons/${id}`,
+
   // Sample or Misc
   sample: "/sample-page",
 }

@@ -1,17 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import { Card, Button } from "flowbite-react";
 import { Icon } from "@iconify/react";
+import type { Course, Tag } from "src/types";
 import paths from "src/config/path.config";
-import { Course } from "src/types";
 import CourseCard from "./CourseCard";
 
 interface CourseGridProps {
   courses: Course[];
+  tags: Tag[];
   loading?: boolean;
   viewMode?: 'grid' | 'list';
 }
 
-const CourseGrid: React.FC<CourseGridProps> = ({ courses, loading, viewMode = 'grid' }) => {
+const CourseGrid: React.FC<CourseGridProps> = ({ courses, tags, loading, viewMode = 'grid' }) => {
   const navigate = useNavigate();
 
   if (loading) {
@@ -75,6 +76,7 @@ const CourseGrid: React.FC<CourseGridProps> = ({ courses, loading, viewMode = 'g
         <CourseCard
           key={course._id}
           course={course}
+          tags={tags}
           viewMode={viewMode}
         />
       ))}

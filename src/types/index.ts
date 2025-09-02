@@ -4,13 +4,14 @@
 // Người dùng
 export interface User {
   _id: string;
+  email: string;
   username: string;
   password?: string;
-  email: string;
   role: 'admin' | 'staff' | 'user';
   avatar?: string;
   isVerified: boolean;
-  joinedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 // ────────────────────────────────────────────────────────────────────────────────
@@ -20,11 +21,12 @@ export interface User {
 export interface Tag {
   _id: string;
   name: string;
-  type?: 'topic' | "skill" | 'item' | 'quest' | 'other';
+  type: 'topic' | "skill" | 'item' | 'quest' | 'other';
   icon?: string;
   color?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
-
 // Nhân vật
 export interface Character {
   _id: string;
@@ -35,40 +37,79 @@ export interface Character {
   def: number;
   critRate?: number;
   critDamage?: number;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 // Khóa học
 export interface Course {
   _id: string;
   title: string;
+  level: string;
   tags?: string[]; //Tag._id[]
   thumbnail?: string;
   description?: string;
-  level?: string; // A1, A2, B1, B2, C1, C2
-  lessons: string[]; // Lesson._id[]
   rewardCoins?: number;
   rewardItems?: { id: string; quantity: number }[];
-  createdAt: Date;
+  createdAt?: Date;
   updatedAt?: Date;
 }
 // Bài học
 export interface Lesson {
   _id: string;
+  courseId: string; // Course._id
   title: string;
-  tags?: string[];
   content: string;
-  quizzes: string[]; // Quiz._id[]
-  resources?: string[];
-  monster?: Character;
+  vocabularies: string[]; // Vocabulary._id[]
+  grammars: string[]; // Grammar._id[]
+  quizzes?: string[]; // Quiz._id[]
+  tags?: string[];
+  monsterId?: string; // Character._id
   rewardCoins?: number;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
+
+export interface Vocabulary {
+  _id: string;
+  code: string; // e.g., 'en', 'vi'
+  word: string;
+  phonetic?: string;
+  example?: string;
+  imageUrl?: string;
+  quizzes?: string[]; // Quiz._id[]
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export interface Translation {
+  _id: string;
+  vocabularyId: string; // Vocabulary._id
+  code: string; // e.g., 'en', 'vi'
+  meaning: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export interface Grammar {
+  _id: string;
+  title: string;
+  explanation: string;
+  examples?: string[];
+  notes?: string;
+  quizzes?: string[]; // Quiz._id[]
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
 // Câu hỏi
 export interface BaseQuiz {
   _id: string;
-  lessonId: string; // Lesson._id
   type: 'choice' | 'fill_blank' | 'matching';
   question: string;
   timeLimit?: number; // seconds
   rewardExp?: number;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface ChoiceQuiz extends BaseQuiz {
@@ -99,14 +140,15 @@ export interface UserProgress {
   level: number;
   exp: number;
   coins: number;
-  characterId: string; // Character._id
-  stats: {
+  characterId?: string; // Character._id
+  stats?: {
     hp: number;
     atk: number;
     def: number;
     critRate: number;
     critDamage: number;
   };
+  createdAt?: Date;
   updatedAt?: Date;
 }
 // Tiến trình khóa học
@@ -128,6 +170,7 @@ export interface QuestProgress {
   questId: string; // Quest._id
   status: 'not_started' | 'in_progress' | 'completed';
   progress?: number; // 0-100%
+  createdAt?: Date;
   updatedAt?: Date;
 }
 // Tiến trình thành tích (Dự kiến)
@@ -135,7 +178,8 @@ export interface AchievementProgress {
   _id: string;
   userId: string; // User._id
   achievementId: string; // Achievement._id
-  achievedAt?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 
@@ -149,6 +193,8 @@ export interface Achievement {
   description?: string;
   icon?: string;
   points?: number;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 // Nhiệm vụ (Dự kiến)
 export interface Quest {
@@ -162,6 +208,8 @@ export interface Quest {
     id: string; // Item._id
     quantity: number;
   }[];
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 // Vật phẩm (Dự kiến)
 export interface Item {
@@ -172,6 +220,8 @@ export interface Item {
   icon?: string;
   effect?: string;
   type: 'equipment' | 'consumable' | 'quest' | 'other';
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 // Kho đồ (Dự kiến)
 export interface Inventory {
@@ -179,6 +229,8 @@ export interface Inventory {
   userId: string; // User._id
   itemId: string; // Item._id
   quantity: number;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 

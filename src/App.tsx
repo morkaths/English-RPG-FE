@@ -1,14 +1,12 @@
-
 import { BrowserRouter } from "react-router-dom";
 import { Flowbite, ThemeModeScript } from 'flowbite-react';
 import { AppConfigProvider } from './context/AppConfigContext';
 import { AuthProvider } from './context/AuthContext';
 import customTheme from './utils/theme/custom-theme';
 import AppRoutes from "./routes";
-
+import './utils/i18n';
 
 function App() {
-
   return (
     <>
       <ThemeModeScript />

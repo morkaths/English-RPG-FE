@@ -1,7 +1,33 @@
+import { Timeline } from "flowbite-react";
+import type { Lesson } from "src/types";
+import StepButton from "./StepButton";
 
-import { Icon } from "@iconify/react";
-import type { Course, Lesson } from "src/types";
+interface LearningPathProps {
+  lessons: Lesson[];
+}
 
-type Status = "locked" | "unlocked" | "current";
+const LearningPath: React.FC<LearningPathProps> = ({ lessons }) => {
+  return (
+    <Timeline>
+      {lessons.map((lesson, idx) => (
+        <Timeline.Item key={idx}>
+          <Timeline.Point>
+            {/* Button */}
+            <StepButton
+              index={idx}
+              lesson={lesson}
+              icon="mdi:star-circle-outline"
+              status="unlocked"
+            />
+          </Timeline.Point>
+          <Timeline.Content>
+            {/* Title */}
+            <Timeline.Title>{lesson.title}</Timeline.Title>
+          </Timeline.Content>
+        </Timeline.Item>
+      ))}
+    </Timeline>
+  );
+};
 
-
+export default LearningPath;

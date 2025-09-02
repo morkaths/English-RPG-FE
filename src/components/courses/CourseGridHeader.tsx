@@ -1,6 +1,6 @@
-import { Badge, Button } from "flowbite-react";
+import { Button } from "flowbite-react";
 import { Icon } from "@iconify/react";
-import { SearchFilters, Tag } from "src/types";
+import type { SearchFilters, Tag } from "src/types";
 import { sortOptions } from "src/constants";
 
 interface CourseGridHeaderProps {
@@ -24,6 +24,7 @@ const renderFilterBadges = (
   onClearTag: (key: keyof SearchFilters) => void
 ) => {
   return Object.entries(filters).map(([key, value]) => {
+    // Skip empty or undefined filters
     if (
       value === undefined ||
       value === null ||
@@ -34,6 +35,7 @@ const renderFilterBadges = (
     }
     let displayValue: string;
 
+    // Special handling for tags and sort by
     if (key === "tags" && Array.isArray(value)) {
       displayValue = value
         .map((id) => tagOptions.find((tag) => tag._id === id)?.name || id)
@@ -47,16 +49,22 @@ const renderFilterBadges = (
     }
 
     return (
-      <Badge key={key} color="gray" className="flex items-center gap-1 rounded-full px-4 min-h-[28px]">
-        {filterLabels[key] ? `${filterLabels[key]}: ` : ""}{displayValue}
+      <span
+        key={key}
+        className="flex items-center gap-1 rounded-full px-4 min-h-[28px] py-1 text-gray-700 bg-gray-300/40 dark:text-gray-200 dark:bg-gray-700/60"
+        style={{ fontSize: 14 }}
+      >
+        {filterLabels[key] ? `${filterLabels[key]}: ` : ""}
+        {displayValue}
         <button
+          type="button"
+          className="ml-1 hover:text-red-500"
           onClick={() => onClearTag(key as keyof SearchFilters)}
-          className="ml-1 justify-center hover:text-red-500 bg-transparent border-none outline-none "
           aria-label={`Xóa bộ lọc ${key}`}
         >
-          <Icon icon="mdi:close" className="w-3 h-3 relative top-[2px]" />
+          <Icon icon="mdi:close" className="w-4 h-4" />
         </button>
-      </Badge>
+      </span>
     );
   });
 };
@@ -89,7 +97,7 @@ const CourseGridHeader: React.FC<CourseGridHeaderProps> = ({
           onClick={() => setViewMode('grid')}
           aria-label="Chế độ lưới"
         >
-          <Icon icon="mdi:grid" className="w-4 h-4" />
+          <Icon icon="tabler:grid-dots" className="w-4 h-4" />
         </Button>
         <Button
           color={viewMode === 'list' ? 'primary' : 'gray'}
@@ -97,7 +105,7 @@ const CourseGridHeader: React.FC<CourseGridHeaderProps> = ({
           onClick={() => setViewMode('list')}
           aria-label="Chế độ danh sách"
         >
-          <Icon icon="mdi:view-list" className="w-4 h-4" />
+          <Icon icon="tabler:list-details" className="w-4 h-4" />
         </Button>
       </div>
     </div>

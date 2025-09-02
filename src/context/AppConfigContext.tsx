@@ -9,6 +9,7 @@ interface AppConfigContextType {
   setConfig: React.Dispatch<React.SetStateAction<AppConfig>>;
   setMode: (mode: "light" | "dark") => void;
   setTheme: (theme: string) => void;
+  setLanguage: (lang: string) => void;
 }
 
 // Context
@@ -16,7 +17,8 @@ const AppConfigContext = createContext<AppConfigContextType>({
   config: config,
   setConfig: () => { },
   setMode: () => { },
-  setTheme: () => { }
+  setTheme: () => { },
+  setLanguage: () => { }
 });
 
 
@@ -27,13 +29,6 @@ export const AppConfigProvider = ({ children }: { children: ReactNode }) => {
     const saved = localStorage.getItem("appConfig");
     return saved ? { ...config, ...JSON.parse(saved) } : config;
   });
-
-  // Apply theme and mode to <html> when config changes
-  useEffect(() => {
-    localStorage.setItem("appConfig", JSON.stringify(appConfig));
-    document.documentElement.setAttribute("data-color-theme", appConfig.activeTheme);
-    document.documentElement.classList.toggle("dark", appConfig.activeMode === "dark");
-  }, [appConfig]);
 
   // Cài đặt chế độ (light/dark)
   const setMode = useCallback((mode: "light" | "dark") => {
@@ -51,11 +46,26 @@ export const AppConfigProvider = ({ children }: { children: ReactNode }) => {
     }));
   }, []);
 
+  const setLanguage = useCallback((lang: string) => {
+    setAppConfig((prevConfig) => ({
+      ...prevConfig,
+      isLanguage: lang
+    }));
+  }, []);
+
+  // Apply theme and mode to <html> when config changes
+  useEffect(() => {
+    localStorage.setItem("appConfig", JSON.stringify(appConfig));
+    document.documentElement.setAttribute("data-color-theme", appConfig.activeTheme);
+    document.documentElement.classList.toggle("dark", appConfig.activeMode === "dark");
+  }, [appConfig]);
+
   const contextValue: AppConfigContextType = {
     config: appConfig,
     setConfig: setAppConfig,
     setMode,
-    setTheme
+    setTheme,
+    setLanguage
   };
 
   return (

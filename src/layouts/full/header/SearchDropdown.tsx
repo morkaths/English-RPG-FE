@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Button, TextInput } from 'flowbite-react';
 import { Icon } from "@iconify/react";
 import paths from "src/config/path.config"
@@ -17,6 +18,7 @@ const SearchIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 const SearchDropdown: React.FC<SearchDropdownProps> = ({ onClose, isModalOpen }) => {
+  const { t } = useTranslation();
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
@@ -112,7 +114,7 @@ const SearchDropdown: React.FC<SearchDropdownProps> = ({ onClose, isModalOpen })
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => setIsOpen(true)}
           onKeyDown={handleKeyPress}
-          placeholder="Nhập từ khóa..."
+          placeholder={t('header.search_placeholder')}
           icon={SearchIcon}
           className="pl-10 pr-12 h-10 w-full md:w-[280px] lg:w-[350px] xl:w-[400px] dark:bg-darkgray dark:text-white dark:border-gray-700"
         />
@@ -146,14 +148,14 @@ const SearchDropdown: React.FC<SearchDropdownProps> = ({ onClose, isModalOpen })
           {(recentSearches.length > 0) && (
             <div className="p-3 border-t dark:border-gray-700">
               <div className="flex items-center justify-between mb-2">
-                <h3 className="text-sm font-medium">Tìm kiếm gần đây</h3>
+                <h3 className="text-sm font-medium">{t('header.recent_searches')}</h3>
                 <Button
                   color="light"
                   size="xs"
                   className="h-6 px-2 border-none text-xs md:text-xs sm:text-[11px] xs:text-[10px]"
                   onClick={clearRecentSearches}
                 >
-                  Xóa tất cả
+                  {t('header.clear_all')}
                 </Button>
               </div>
               <div className="space-y-1">
@@ -176,7 +178,7 @@ const SearchDropdown: React.FC<SearchDropdownProps> = ({ onClose, isModalOpen })
                         e.stopPropagation();
                         removeRecentSearch(index);
                       }}
-                      title="Xóa"
+                      title={t('header.delete')}
                     >
                       <Icon icon="mdi:close" width={14} height={14} />
                     </button>
@@ -188,7 +190,7 @@ const SearchDropdown: React.FC<SearchDropdownProps> = ({ onClose, isModalOpen })
 
           {/* Quick Actions */}
           <div className="p-3 border-t">
-            <h3 className="text-sm font-medium mb-2">Khám phá</h3>
+            <h3 className="text-sm font-medium mb-2">{t('header.explore')}</h3>
             <div className="space-y-1">
               <Link
                 to="/courses?popular=true"
@@ -198,7 +200,7 @@ const SearchDropdown: React.FC<SearchDropdownProps> = ({ onClose, isModalOpen })
                 }}
               >
                 <Icon icon="mdi:trending-up" width={16} height={16} className="text-green-400" />
-                <span>Khóa học phổ biến</span>
+                <span>{t('header.popular_courses')}</span>
               </Link>
               <Link
                 to="/courses?level=A1"
@@ -208,7 +210,7 @@ const SearchDropdown: React.FC<SearchDropdownProps> = ({ onClose, isModalOpen })
                 }}
               >
                 <Icon icon="mdi:star" width={14} height={14} className="text-yellow-400" />
-                <span>Dành cho người mới bắt đầu</span>
+                <span>{t('header.for_beginners')}</span>
               </Link>
             </div>
           </div>
@@ -222,7 +224,7 @@ const SearchDropdown: React.FC<SearchDropdownProps> = ({ onClose, isModalOpen })
               disabled={!query.trim()}
             >
               <SearchIcon className="w-4 h-4 mr-2" />
-              Tìm kiếm "{query}"
+              {t('header.search')} "{query}"
             </Button>
           </div>
         </div>

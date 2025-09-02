@@ -1,6 +1,8 @@
-import * as RequestUtils from '../utils/request';
+import * as ApiRequest from './index';
 import type { User } from '../types';
 import { API_CONFIG } from 'src/config/api.config';
+
+const SERVICE: ApiRequest.ApiService = 'user';
 
 export const AuthService = {
     /**
@@ -9,7 +11,7 @@ export const AuthService = {
      * @returns Promise<{ user: User; token: string } | null>
      */
     register: async (data: Partial<User>): Promise<{ user: User; token: string } | null> => {
-        const response = await RequestUtils.privatePost<User>(API_CONFIG.endpoints.auth.register, data);
+        const response = await ApiRequest.apiPost<User>(SERVICE, API_CONFIG.endpoints.auth.register, data, 'public');
         if (response.success && response.user && response.token) {
             return { user: response.user, token: response.token };
         }
@@ -22,7 +24,7 @@ export const AuthService = {
      * @returns Promise<{ user: User; token: string } | null>
      */
     login: async (email: string, password: string): Promise<{ user: User; token: string } | null> => {
-        const response = await RequestUtils.privatePost<User>(API_CONFIG.endpoints.auth.login, { email, password });
+        const response = await ApiRequest.apiPost<User>(SERVICE, API_CONFIG.endpoints.auth.login, { email, password }, 'public');
         if (response.success && response.user && response.token) {
             return { user: response.user, token: response.token };
         }
@@ -33,7 +35,7 @@ export const AuthService = {
      * @returns Promise<boolean>
      */
     logout: async (): Promise<boolean> => {
-        const response = await RequestUtils.privatePost(API_CONFIG.endpoints.auth.logout);
+        const response = await ApiRequest.apiPost(SERVICE, API_CONFIG.endpoints.auth.logout);
         return response.success;
     },
     /**
@@ -41,7 +43,7 @@ export const AuthService = {
      * @returns Promise<User | null>
      */
     profile: async (): Promise<User | null> => {
-        const response = await RequestUtils.privateGet<User>(API_CONFIG.endpoints.auth.profile);
+        const response = await ApiRequest.apiGet<User>(SERVICE, API_CONFIG.endpoints.auth.profile);
         if (response.success && response.user) {
             return response.user; 
         }
@@ -53,7 +55,7 @@ export const AuthService = {
      * @returns Promise<User | null>
      */
     update: async (data: Partial<User>): Promise<User | null> => {
-        const response = await RequestUtils.privatePut<User>(API_CONFIG.endpoints.auth.update, data);
+        const response = await ApiRequest.apiPut<User>(SERVICE, API_CONFIG.endpoints.auth.update, data);
         if (response.success && response.user) {
             return response.user;
         }

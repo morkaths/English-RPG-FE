@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from 'react-router-dom';
 import { Spinner, Alert, Card } from "flowbite-react";
-import { SearchFilters } from "src/types";
+import type { SearchFilters } from "src/types";
 import paths from "src/config/path.config";
 import useTags from "src/hooks/useTags";
 import useCourses from "src/hooks/useCourses";
@@ -119,6 +119,7 @@ const CoursesPage = () => {
         ) : (
           <CourseGrid
             courses={courses}
+            tags={tagOptions}
             loading={loading}
             viewMode={viewMode}
           />
