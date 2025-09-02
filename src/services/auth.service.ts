@@ -6,9 +6,9 @@ const SERVICE: ApiRequest.ApiService = 'user';
 
 export const AuthService = {
     /**
-     * Đăng ký người dùng mới
-     * @param data - thông tin người dùng
-     * @returns Promise<{ user: User; token: string } | null>
+     * New user registration
+     * @param data - User information
+     * @returns The user and token if registration is successful, null otherwise
      */
     register: async (data: Partial<User>): Promise<{ user: User; token: string } | null> => {
         const response = await ApiRequest.apiPost<User>(SERVICE, API_CONFIG.endpoints.auth.register, data, 'public');
@@ -18,10 +18,10 @@ export const AuthService = {
         throw new Error(response.message || 'Registration failed');
     },
     /**
-     * Đăng nhập người dùng
-     * @param email - địa chỉ email của người dùng
-     * @param password - mật khẩu của người dùng
-     * @returns Promise<{ user: User; token: string } | null>
+     * User login
+     * @param email - User email address
+     * @param password - User password
+     * @returns The user and token if login is successful, null otherwise
      */
     login: async (email: string, password: string): Promise<{ user: User; token: string } | null> => {
         const response = await ApiRequest.apiPost<User>(SERVICE, API_CONFIG.endpoints.auth.login, { email, password }, 'public');
@@ -31,16 +31,16 @@ export const AuthService = {
         throw new Error(response.message || 'Login failed');
     },
     /**
-     * Đăng xuất người dùng
-     * @returns Promise<boolean>
+     * User logout
+     * @returns True if logout is successful, false otherwise
      */
     logout: async (): Promise<boolean> => {
         const response = await ApiRequest.apiPost(SERVICE, API_CONFIG.endpoints.auth.logout);
         return response.success;
     },
     /**
-     * Lấy thông tin người dùng
-     * @returns Promise<User | null>
+     * Get user profile
+     * @returns The user profile if successful, null otherwise
      */
     profile: async (): Promise<User | null> => {
         const response = await ApiRequest.apiGet<User>(SERVICE, API_CONFIG.endpoints.auth.profile);
@@ -50,9 +50,9 @@ export const AuthService = {
         throw new Error(response.message || 'Failed to fetch user profile');
     },
     /**
-     * Cập nhật thông tin người dùng
-     * @param data - thông tin người dùng
-     * @returns Promise<User | null>
+     * Update user information
+     * @param data - User information
+     * @returns The updated user if successful, null otherwise
      */
     update: async (data: Partial<User>): Promise<User | null> => {
         const response = await ApiRequest.apiPut<User>(SERVICE, API_CONFIG.endpoints.auth.update, data);
