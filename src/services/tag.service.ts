@@ -45,7 +45,7 @@ export const TagService = {
   /**
    * Create a new tag
    * @param data - Tag information
-   * @returns - Tag | null
+   * @returns Tag | null
    */
   create: async (data: Partial<Tag>): Promise<Tag | null> => {
     const response = await ApiRequest.apiPost<Tag>(SERVICE, API_CONFIG.endpoints.tag.create, data);
@@ -58,7 +58,7 @@ export const TagService = {
    * Update tag information
    * @param id - Tag ID
    * @param data - Tag information
-   * @returns - Tag | null
+   * @returns Tag | null
    */
   update: async (id: string, data: Partial<Tag>): Promise<Tag | null> => {
     const response = await ApiRequest.apiPut<Tag>(SERVICE, API_CONFIG.endpoints.tag.update(id), data);
@@ -70,7 +70,7 @@ export const TagService = {
   /**
    * Delete a tag
    * @param id - Tag ID
-   * @returns - boolean
+   * @returns boolean
    */
   delete: async (id: string): Promise<boolean> => {
     const response = await ApiRequest.apiDelete(SERVICE, API_CONFIG.endpoints.tag.delete(id));

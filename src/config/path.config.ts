@@ -1,14 +1,13 @@
 import type { SearchFilters } from "src/types";
 
 const paths = {
-  // Public Layout
   home: "/",
+
+  // Authentication
   login: "/auth/login",
   register: "/auth/register",
   error404: "/auth/error404",
   error403: "/auth/error403",
-
-  // User Profile
   profile: "/user/profile",
   settings: "/user/settings",
 
@@ -35,6 +34,9 @@ const paths = {
   // Lessons
   lessons: "/lessons",
   lessonDetail: (id: string) => `/lessons/${id}`,
+
+  // Pronunciation
+  pronunciation: "/pronunciation",
 
   // Sample or Misc
   sample: "/sample-page",

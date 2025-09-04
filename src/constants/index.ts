@@ -27,13 +27,34 @@ export const tagOptions: Types.Tag[] = [
   { _id: "10", name: "Giải trí", type: "topic", color: "#ec4899" },
 ];
 
-export const characters: Types.Character[] = [
-  { _id: "1", name: "Warrior", figure: "warrior.png", hp: 100, atk: 20, def: 15 },
-  { _id: "2", name: "Mage", figure: "mage.png", hp: 80, atk: 25, def: 10 },
-  { _id: "3", name: "Archer", figure: "archer.png", hp: 90, atk: 22, def: 12 },
-  { _id: "4", name: "Slime", figure: "slime.png", hp: 50, atk: 10, def: 5 },
-  { _id: "5", name: "Goblin", figure: "goblin.png", hp: 70, atk: 15, def: 8 },
-  { _id: "6", name: "Orc", figure: "orc.png", hp: 120, atk: 25, def: 18 }
+export const vowels = [
+  { symbol: "ɑ", word: "hot",  audioUrl: "https://dictionary.cambridge.org/topics/pronunciation/ɑ" },
+  { symbol: "æ", word: "cat",  audioUrl: "https://dictionary.cambridge.org/topics/pronunciation/æ" },
+  { symbol: "ʌ", word: "but",  audioUrl: "https://dictionary.cambridge.org/topics/pronunciation/ʌ" },
+  { symbol: "ɛ", word: "bed", audioUrl: "https://dictionary.cambridge.org/topics/pronunciation/ɛ" },
+  { symbol: "eɪ", word: "say", audioUrl: "https://dictionary.cambridge.org/topics/pronunciation/eɪ" },
+  { symbol: "ɜː", word: "bird", audioUrl: "https://dictionary.cambridge.org/topics/pronunciation/ɜː" },
+  { symbol: "ɪ", word: "ship", audioUrl: "https://dictionary.cambridge.org/topics/pronunciation/ɪ" },
+  { symbol: "i", word: "sheep", audioUrl: "https://dictionary.cambridge.org/topics/pronunciation/i" },
+  { symbol: "ə", word: "about", audioUrl: "https://dictionary.cambridge.org/topics/pronunciation/ə" },
+  { symbol: "oʊ", word: "boat", audioUrl: "https://dictionary.cambridge.org/topics/pronunciation/oʊ" },
+  { symbol: "ʊ", word: "foot", audioUrl: "https://dictionary.cambridge.org/topics/pronunciation/ʊ" },
+  { symbol: "u", word: "food", audioUrl: "https://dictionary.cambridge.org/topics/pronunciation/u" },
+  { symbol: "aʊ", word: "cow", audioUrl: "https://dictionary.cambridge.org/topics/pronunciation/aʊ" },
+  { symbol: "aɪ", word: "time", audioUrl: "https://dictionary.cambridge.org/topics/pronunciation/aɪ" },
+  { symbol: "ɔɪ", word: "boy", audioUrl: "https://dictionary.cambridge.org/topics/pronunciation/ɔɪ" },
+];
+
+export const consonants = [
+  { symbol: "b", word: "book" },
+  { symbol: "tʃ", word: "chair" },
+  { symbol: "d", word: "day" },
+  { symbol: "f", word: "fish" },
+  { symbol: "g", word: "go" },
+  { symbol: "h", word: "home" },
+  { symbol: "dʒ", word: "job" },
+  { symbol: "k", word: "key" },
+  { symbol: "l", word: "lion" },
 ];
 
 export const courses: Types.Course[] = [

@@ -21,7 +21,7 @@ const apiInstances = Object.fromEntries(
   }
 };
 
-export type ApiService = keyof typeof API_CONFIG.baseURLs;
+type ApiService = keyof typeof API_CONFIG.baseURLs;
 type ApiMode = keyof (typeof apiInstances)[ApiService];
 
 // ────────────────────────────────────────────────────────────────────────────────
@@ -143,6 +143,7 @@ async function apiDelete<T>(
 }
 
 export {
+  type ApiService,
   apiGet,
   apiPost,
   apiPut,

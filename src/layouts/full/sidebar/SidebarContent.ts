@@ -30,6 +30,12 @@ const SidebarContent: MenuItem[] = [
         id: uniqueId(),
         url: paths.courses,
       },
+      {
+        name: "Pronunciation",
+        icon: "solar:volume-loud-linear",
+        id: uniqueId(),
+        url: paths.pronunciation,
+      },
     ],
   },
   {
